@@ -1,0 +1,581 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #27B376 0%, #006F3C 50%, #254B96 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #e8f5ee 0%, #d0ebdd 50%, #dce4f5 100%);
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #1a3270 0%, #254B96 50%, #1e407a 100%);
+}
+
+/* Light hero section inspired by sample */
+.hero-light {
+    background: linear-gradient(180deg, #f8f6f1 0%, #f3efe6 30%, #eef0e8 60%, #f0f4f0 100%);
+    position: relative;
+}
+
+.hero-light::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(39, 179, 118, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-light::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -20%;
+    width: 50%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(37, 75, 150, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Clothesline */
+.clothesline-wire {
+    position: absolute;
+    top: 12px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #c0c0c0 10%, #a0a0a0 50%, #c0c0c0 90%, transparent 100%);
+    z-index: 1;
+}
+
+/* Polaroid Cards */
+.polaroid-card {
+    flex-shrink: 0;
+    width: 180px;
+    position: relative;
+    transform: rotate(var(--rotation, 0deg));
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.polaroid-card:hover {
+    transform: rotate(0deg) scale(1.08) translateY(-8px);
+    z-index: 10;
+}
+
+.clip-pin {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 24px;
+    background: #27B376;
+    clip-path: polygon(15% 0%, 85% 0%, 100% 35%, 85% 100%, 15% 100%, 0% 35%);
+    z-index: 3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.polaroid-inner {
+    background: white;
+    border-radius: 8px;
+    padding: 8px 8px 12px 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 12px;
+    transition: box-shadow 0.3s ease;
+}
+
+.polaroid-card:hover .polaroid-inner {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.polaroid-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.polaroid-caption {
+    padding: 10px 4px 4px 4px;
+    text-align: center;
+}
+
+@media (min-width: 640px) {
+    .polaroid-card {
+        width: 200px;
+    }
+
+    .polaroid-img {
+        height: 160px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .polaroid-card {
+        width: 220px;
+    }
+
+    .polaroid-img {
+        height: 180px;
+    }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(39, 179, 118, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #27B376 0%, #006F3C 100%);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(39, 179, 118, 0.5);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: #27B376;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.search-glow:focus {
+    box-shadow: 0 0 0 4px rgba(39, 179, 118, 0.15);
+}
+
+.gift-box {
+    animation: giftBounce 2s ease-in-out infinite;
+}
+
+.shimmer-bg {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+}
+
+.page-transition {
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hamburger-line {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.menu-open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+}
+
+.service-icon {
+    background: linear-gradient(135deg, #e8f5ee 0%, #dce4f5 100%);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, #27B376 0%, #006F3C 100%);
+    color: white;
+}
+
+.price-tag {
+    background: linear-gradient(135deg, #FAA73F 0%, #e8942e 100%);
+}
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+}
+
+.modal-enter {
+    animation: scaleIn 0.3s ease-out;
+}
+
+.counter-scramble {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+}
+
+.category-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    transition: all 0.4s ease;
+}
+
+.category-card:hover {
+    border-color: #27B376;
+    transform: translateY(-4px);
+}
+
+.filter-chip {
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.filter-chip.active {
+    background: #e8f5ee;
+    border-color: #27B376;
+    color: #006F3C;
+}
+
+.star-rating {
+    color: #FAA73F;
+}
+
+.blob {
+    position: absolute;
+    filter: blur(40px);
+    opacity: 0.3;
+    animation: float 10s ease-in-out infinite;
+}
+
+.input-field {
+    transition: all 0.3s ease;
+    border: 2px solid #e2e8f0;
+}
+
+.input-field:focus {
+    border-color: #27B376;
+    box-shadow: 0 0 0 4px rgba(39, 179, 118, 0.1);
+}
+
+.tag-popular {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.verified-badge {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+/* Serva Logo in Navbar */
+.serva-logo {
+    height: 40px;
+    width: auto;
+}
+
+@media (min-width: 640px) {
+    .serva-logo {
+        height: 48px;
+    }
+}
+
+/* Section Backgrounds */
+.section-warm {
+    background: linear-gradient(180deg, #f8f6f1 0%, #f3efe6 40%, #eef0e8 70%, #f0f4f0 100%);
+}
+
+.section-green {
+    background: linear-gradient(180deg, #e5f5ec 0%, #d4edde 40%, #e0f0e5 100%);
+}
+
+/* New Service Cards (reference style) */
+.service-card-new {
+    flex-shrink: 0;
+    width: 240px;
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card-new:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #27B376;
+}
+
+/* Step Cards */
+.step-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+    border-color: #27B376;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #27B376 0%, #006F3C 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Trust Badges */
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #334155;
+    transition: all 0.2s ease;
+}
+
+.trust-badge:hover {
+    border-color: #27B376;
+    color: #27B376;
+}
+
+.trust-badge i {
+    color: #27B376;
+    font-size: 0.75rem;
+}
+
+/* Feature Visual Stats Grid */
+.green-feature-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.green-feature-visual .feature-stat-card:last-child {
+    grid-column: 1 / -1;
+}
+
+.feature-stat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease;
+}
+
+.feature-stat-card:hover {
+    transform: translateY(-3px);
+}
+
+/* About Value Cards */
+.about-value-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.about-value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+    border-color: #27B376;
+}
+
+/* Contact Cards */
+.contact-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #27B376;
+}
+
+/* Footer */
+.footer-green {
+    background: linear-gradient(180deg, #1a3a2a 0%, #132e20 100%);
+    color: #94a3b8;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #94a3b8;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social:hover {
+    background: #27B376;
+    border-color: #27B376;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Premium Category Cards */
+.category-card-premium {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    padding: 40px 32px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.category-card-premium:hover {
+    border-color: #27B376;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(39, 179, 118, 0.08);
+}
+
+.category-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #f1f9f5;
+    color: #27B376;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.category-card-premium:hover .category-icon-wrapper {
+    background: #27B376;
+    color: white;
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Premium Service List Cards */
+.service-card-premium {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 32px;
+    padding: 32px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #27B376;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card-premium:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.06);
+    border-color: transparent;
+}
+
+.service-card-premium:hover::before {
+    opacity: 1;
+}

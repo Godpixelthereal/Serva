@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serva - Your Trusted Service Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        serva: { 50: '#e8f5ee', 100: '#d0ebdd', 200: '#a1d7bb', 300: '#72c399', 400: '#43af77', 500: '#27B376', 600: '#006F3C', 700: '#005a31', 800: '#004526', 900: '#00301b', 950: '#001b0f' },
+                        navy: { 500: '#254B96', 600: '#1e3f7e', 700: '#173366', 800: '#10274e', 900: '#091b36' },
+                        accent: { 500: '#FAA73F', 600: '#e8942e' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Poppins', 'sans-serif'] },
+                    animation: { 'float': 'float 6s ease-in-out infinite', 'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)', 'gift-bounce': 'giftBounce 2s ease-in-out infinite' },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+                        slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        giftBounce: { '0%, 100%': { transform: 'translateY(0) rotate(0deg)' }, '25%': { transform: 'translateY(-10px) rotate(-5deg)' }, '75%': { transform: 'translateY(-10px) rotate(5deg)' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="glass-morphism border-b border-white/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex items-center cursor-pointer group" onclick="showHome()">
+                        <img src="serva-logo-navbar.png" alt="Serva"
+                            class="serva-logo group-hover:scale-105 transition-all">
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <button onclick="showHome()"
+                            class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Home</button>
+                        <button onclick="showCategories()"
+                            class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Services</button>
+                        <button onclick="showAbout()"
+                            class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">About</button>
+                        <button onclick="showContact()"
+                            class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Contact</button>
+                        <button onclick="openOfferModal()"
+                            class="btn-primary text-white px-6 py-3 rounded-full font-semibold shadow-lg shadow-serva-500/30 flex items-center gap-2">
+                            <i class="fas fa-plus-circle"></i> <span>Offer Services</span>
+                        </button>
+                    </div>
+                    <button onclick="toggleMobileMenu()"
+                        class="md:hidden p-2 sm:p-3 rounded-xl hover:bg-slate-100 transition" id="hamburgerBtn">
+                        <div class="w-6 h-5 flex flex-col justify-between">
+                            <span class="hamburger-line w-full h-0.5 bg-slate-700 rounded-full"></span>
+                            <span class="hamburger-line w-full h-0.5 bg-slate-700 rounded-full"></span>
+                            <span class="hamburger-line w-full h-0.5 bg-slate-700 rounded-full"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu"
+            class="hidden md:hidden glass-morphism absolute top-20 w-full border-b border-slate-200 shadow-xl max-h-[calc(100vh-5rem)] overflow-y-auto">
+            <div class="px-4 py-4 space-y-2">
+                <button onclick="showHome(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-home w-8 text-serva-500"></i>Home</button>
+                <button onclick="showCategories(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-th-large w-8 text-serva-500"></i>Categories</button>
+                <button onclick="showAbout(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-info-circle w-8 text-serva-500"></i>About Us</button>
+                <button onclick="showFeedback(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-comment-dots w-8 text-serva-500"></i>Feedback</button>
+                <button onclick="showContact(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-envelope w-8 text-serva-500"></i>Contact</button>
+                <button onclick="showTerms(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-file-contract w-8 text-serva-500"></i>Terms</button>
+                <div class="pt-4 mt-2 border-t border-slate-200">
+                    <button onclick="openOfferModal(); toggleMobileMenu()"
+                        class="w-full btn-primary text-white py-3 rounded-xl font-bold">Offer Your Services</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <div id="homePage" class="page-section">
+            <section class="relative min-h-[90vh] flex flex-col items-center overflow-hidden hero-light">
+                <!-- Top Content -->
+                <div
+                    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-16 sm:pt-24 pb-8 text-center">
+                    <!-- Badge Pill -->
+                    <div
+                        class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-5 py-2.5 mb-8 shadow-sm animate-slide-up">
+                        <span class="w-2 h-2 rounded-full bg-serva-500"></span>
+                        <span class="text-sm font-medium text-slate-700">Trusted Platform for Service Seekers</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1
+                        class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 font-display animate-slide-up leading-[1.1] tracking-tight uppercase">
+                        Find Expert <span class="text-serva-500">Services</span> to<br class="hidden sm:block"> Connect
+                        and Grow
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-base sm:text-lg text-slate-500 max-w-xl mx-auto mb-8 animate-slide-up">
+                        Connect with verified professionals for all your needs — from home services to tech support.
+                    </p>
+
+                    <!-- CTA Button -->
+                    <button onclick="showCategories()"
+                        class="btn-primary text-white px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg shadow-serva-500/30 hover:shadow-xl hover:shadow-serva-500/40 transition-all animate-slide-up">
+                        Explore Services
+                    </button>
+                </div>
+
+                <!-- Polaroid Cards on Clothesline -->
+                <div class="relative w-full max-w-6xl mx-auto px-4 mt-8 sm:mt-12 pb-12">
+                    <!-- Clothesline -->
+                    <div class="clothesline-wire"></div>
+
+                    <!-- Cards Container -->
+                    <div class="flex justify-center gap-3 sm:gap-6 overflow-x-auto pb-4 px-2 hide-scrollbar snap-x snap-mandatory"
+                        id="heroCards">
+                        <!-- Card 1: Home Services -->
+                        <div class="polaroid-card snap-center" style="--rotation: -6deg;">
+                            <div class="clip-pin"></div>
+                            <div class="polaroid-inner">
+                                <img src="img-home.png" alt="Home Services" class="polaroid-img">
+                                <div class="polaroid-caption">
+                                    <h4 class="font-bold text-sm text-slate-900">Home Services</h4>
+                                    <p class="text-xs text-slate-500">Cleaning, repairs & more</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Professional -->
+                        <div class="polaroid-card snap-center" style="--rotation: 3deg;">
+                            <div class="clip-pin"></div>
+                            <div class="polaroid-inner">
+                                <img src="img-professional.png" alt="Professional Services" class="polaroid-img">
+                                <div class="polaroid-caption">
+                                    <h4 class="font-bold text-sm text-slate-900">Professional</h4>
+                                    <p class="text-xs text-slate-500">Legal, accounting & marketing</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Personal Care -->
+                        <div class="polaroid-card snap-center" style="--rotation: -2deg;">
+                            <div class="clip-pin"></div>
+                            <div class="polaroid-inner">
+                                <img src="img-personal.png" alt="Personal Care" class="polaroid-img">
+                                <div class="polaroid-caption">
+                                    <h4 class="font-bold text-sm text-slate-900">Personal Care</h4>
+                                    <p class="text-xs text-slate-500">Beauty, fitness & wellness</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Events -->
+                        <div class="polaroid-card snap-center" style="--rotation: 5deg;">
+                            <div class="clip-pin"></div>
+                            <div class="polaroid-inner">
+                                <img src="img-events.png" alt="Event Services" class="polaroid-img">
+                                <div class="polaroid-caption">
+                                    <h4 class="font-bold text-sm text-slate-900">Events</h4>
+                                    <p class="text-xs text-slate-500">Catering, photography & decor</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Tech -->
+                        <div class="polaroid-card snap-center" style="--rotation: -4deg;">
+                            <div class="clip-pin"></div>
+                            <div class="polaroid-inner">
+                                <img src="img-tech.png" alt="Tech Support" class="polaroid-img">
+                                <div class="polaroid-caption">
+                                    <h4 class="font-bold text-sm text-slate-900">Tech Support</h4>
+                                    <p class="text-xs text-slate-500">IT support, coding & repair</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden Search for functionality -->
+                <input type="hidden" id="heroSearch" value="">
+            </section>
+
+            <!-- Browse Services Section - Reference style cards -->
+            <section class="section-warm py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-14 sm:mb-20">
+                        <h2
+                            class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-5 font-display leading-tight">
+                            Browse our set of <em class="text-serva-500 italic font-bold not-italic"
+                                style="font-style: italic;">professional</em><br class="hidden sm:block"> services and
+                            offerings
+                        </h2>
+                        <p class="text-slate-500 max-w-2xl mx-auto text-base sm:text-lg">
+                            From home maintenance to business consulting — find the perfect service provider for every
+                            need.
+                        </p>
+                    </div>
+
+                    <!-- Horizontally scrollable service cards -->
+                    <div class="relative">
+                        <div class="flex gap-5 sm:gap-6 overflow-x-auto pb-6 px-1 hide-scrollbar snap-x snap-mandatory scroll-smooth"
+                            id="serviceCardsScroll">
+                            <div class="service-card-new snap-center" onclick="showCategoryServices('home')">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Home Services</h3>
+                                <p class="text-sm text-slate-500 mb-8 leading-relaxed">Professional cleaning, plumbing,
+                                    electrical work and home repairs.</p>
+                                <div
+                                    class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                            </div>
+                            <div class="service-card-new snap-center" onclick="showCategoryServices('professional')">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Professional</h3>
+                                <p class="text-sm text-slate-500 mb-8 leading-relaxed">Legal consultation, accounting
+                                    services, and marketing solutions.</p>
+                                <div
+                                    class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="service-card-new snap-center" onclick="showCategoryServices('personal')">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Personal Care</h3>
+                                <p class="text-sm text-slate-500 mb-8 leading-relaxed">Beauty treatments, fitness
+                                    coaching, spa and wellness services.</p>
+                                <div
+                                    class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-spa"></i>
+                                </div>
+                            </div>
+                            <div class="service-card-new snap-center" onclick="showCategoryServices('events')">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Event Services</h3>
+                                <p class="text-sm text-slate-500 mb-8 leading-relaxed">Catering, event photography,
+                                    decoration and venue planning.</p>
+                                <div
+                                    class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                            <div class="service-card-new snap-center" onclick="showCategoryServices('tech')">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Tech Support</h3>
+                                <p class="text-sm text-slate-500 mb-8 leading-relaxed">IT troubleshooting, software
+                                    development, and device repair.</p>
+                                <div
+                                    class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation arrows -->
+                        <button
+                            onclick="document.getElementById('serviceCardsScroll').scrollBy({left: -280, behavior: 'smooth'})"
+                            class="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-400 hover:text-slate-700 hover:border-slate-400 transition shadow-sm z-10">
+                            <i class="fas fa-chevron-left text-sm"></i>
+                        </button>
+                        <button
+                            onclick="document.getElementById('serviceCardsScroll').scrollBy({left: 280, behavior: 'smooth'})"
+                            class="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-400 hover:text-slate-700 hover:border-slate-400 transition shadow-sm z-10">
+                            <i class="fas fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
+
+                    <!-- CTA row -->
+                    <div class="flex justify-center gap-3 mt-10">
+                        <button onclick="showCategories()"
+                            class="px-6 py-3 rounded-full border-2 border-slate-900 text-slate-900 font-semibold text-sm hover:bg-slate-900 hover:text-white transition">Get
+                            started</button>
+                        <button onclick="showCategories()"
+                            class="px-6 py-3 rounded-full border-2 border-slate-200 text-slate-600 font-semibold text-sm hover:border-slate-400 transition">Learn
+                            more</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature / CTA Section - Green background -->
+            <section class="section-green py-16 sm:py-24 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="relative z-10">
+                            <h2
+                                class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-display leading-tight">
+                                We go the extra mile to <em class="text-serva-600 italic"
+                                    style="font-style: italic;">professionally</em> assist you
+                            </h2>
+                            <p class="text-slate-600 text-base sm:text-lg mb-8 leading-relaxed max-w-lg">
+                                Our verified professionals are handpicked for quality. Every booking comes with a
+                                satisfaction guarantee and direct communication via WhatsApp.
+                            </p>
+                            <button onclick="showCategories()"
+                                class="px-6 py-3 rounded-full border-2 border-slate-900 text-slate-900 font-semibold text-sm hover:bg-slate-900 hover:text-white transition">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="relative flex justify-center">
+                            <div class="green-feature-visual">
+                                <div class="feature-stat-card">
+                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="clientsCounter">0
+                                    </div>
+                                    <p class="text-sm text-slate-500 font-medium">Clients Served</p>
+                                </div>
+                                <div class="feature-stat-card">
+                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="servicesCounter">
+                                        0</div>
+                                    <p class="text-sm text-slate-500 font-medium">Services Available</p>
+                                </div>
+                                <div class="feature-stat-card">
+                                    <div class="text-3xl sm:text-4xl font-bold text-serva-500 mb-1">98%</div>
+                                    <p class="text-sm text-slate-500 font-medium">Satisfaction Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust Badges -->
+            <section class="py-10 sm:py-14 bg-white border-y border-slate-100">
+                <div class="max-w-5xl mx-auto px-4 text-center">
+                    <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-6">Trusted by 2K+ happy
+                        customers</p>
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                        <div class="trust-badge"><i class="fas fa-building"></i> Company</div>
+                        <div class="trust-badge"><i class="fas fa-briefcase"></i> Business</div>
+                        <div class="trust-badge"><i class="fas fa-rocket"></i> Startup</div>
+                        <div class="trust-badge"><i class="fas fa-university"></i> Institute</div>
+                        <div class="trust-badge"><i class="fas fa-city"></i> Enterprise</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Book - Redesigned -->
+            <section class="section-warm py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-14 sm:mb-20">
+                        <h2
+                            class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-5 font-display leading-tight">
+                            Our services are designed for needs<br class="hidden sm:block">
+                            <em class="text-serva-500 italic" style="font-style: italic;">of all sizes</em>
+                        </h2>
+                        <p class="text-slate-500 max-w-2xl mx-auto text-base sm:text-lg">
+                            Whether you need a quick fix or a long-term professional — we've got you covered every step.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Find a Professional</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Search for the service you need and
+                                compare top-rated, verified providers in your area.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Sign Up to Book</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Click "Book Now" and enter your email.
+                                We'll connect you directly with the provider.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Chat on WhatsApp</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Finalize details and negotiate pricing
+                                directly with the provider via WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Services (dynamic) -->
+            <section class="py-16 sm:py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center mb-12 sm:mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-display">Featured Services
+                        </h2>
+                        <p class="text-slate-500">Top picks for you this week</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" id="featuredServices">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Categories Page -->
+        <div id="categoriesPage" class="page-section hidden page-transition">
+            <div class="section-green py-16 sm:py-24 text-center px-4">
+                <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 font-display">Service Categories</h1>
+                <p class="text-slate-600 mt-3 max-w-lg mx-auto">Browse through our curated set of professional services
+                </p>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 -mt-8 sm:-mt-12 pb-16 sm:pb-24">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="categoriesGrid"></div>
+            </div>
+        </div>
+
+        <!-- Services List Page -->
+        <div id="servicesListPage" class="page-section hidden page-transition">
+            <div class="section-green py-12 sm:py-16 px-4 md:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <button onclick="showCategories()"
+                        class="text-slate-500 hover:text-slate-900 mb-4 flex items-center gap-2 text-sm sm:text-base transition"><i
+                            class="fas fa-arrow-left"></i> Back to Categories</button>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 font-display" id="categoryTitle">Category
+                    </h1>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8" id="servicesGrid"></div>
+            </div>
+        </div>
+
+        <!-- Provider Page -->
+        <div id="providerPage" class="page-section hidden page-transition">
+            <div class="section-green py-12 sm:py-16 px-4 md:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <button onclick="backToServices()"
+                        class="text-slate-500 hover:text-slate-900 mb-4 flex items-center gap-2 text-sm sm:text-base transition"><i
+                            class="fas fa-arrow-left"></i> Back to Services</button>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 font-display" id="providerNameHeader">
+                        Provider Profile</h1>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 py-8 sm:py-12" id="providerDetailsContainer"></div>
+        </div>
+
+        <!-- About Page -->
+        <div id="aboutPage" class="page-section hidden page-transition">
+            <div class="section-warm py-16 sm:py-24">
+                <div class="max-w-4xl mx-auto px-4 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 sm:mb-8 font-display">About <em
+                            class="text-serva-500 italic" style="font-style: italic;">Serva</em></h1>
+                    <p class="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mb-12">
+                        Serva is a next-generation platform designed to seamlessly connect service seekers with
+                        verified, professional service providers.
+                    </p>
+                </div>
+                <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="about-value-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Verified Providers</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Every professional on our platform is
+                            thoroughly vetted for quality and reliability.</p>
+                    </div>
+                    <div class="about-value-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Instant Connect</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Get connected with service providers instantly
+                            through WhatsApp for quick communication.</p>
+                    </div>
+                    <div class="about-value-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Satisfaction First</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">We prioritize your satisfaction with every
+                            booking and service interaction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Page -->
+        <div id="feedbackPage" class="page-section hidden page-transition">
+            <div class="section-warm py-12 sm:py-24">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 sm:mb-8 text-center font-display">
+                        Share Your <em class="text-serva-500 italic" style="font-style: italic;">Feedback</em></h1>
+                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden border border-slate-100/80">
+                        <div class="flex border-b border-slate-100 overflow-x-auto hide-scrollbar whitespace-nowrap"
+                            id="feedbackTabs">
+                            <button onclick="setFeedbackTab('suggestion')"
+                                class="px-6 sm:flex-1 py-4 font-semibold text-serva-500 border-b-2 border-serva-500 bg-serva-50/50">Suggestions</button>
+                            <button onclick="setFeedbackTab('enquiry')"
+                                class="px-6 sm:flex-1 py-4 font-semibold text-slate-400 hover:bg-slate-50 transition">Enquiries</button>
+                            <button onclick="setFeedbackTab('complaint')"
+                                class="px-6 sm:flex-1 py-4 font-semibold text-slate-400 hover:bg-slate-50 transition">Complaints</button>
+                        </div>
+                        <form onsubmit="handleFeedback(event)" class="p-6 sm:p-10 space-y-5">
+                            <input type="text" placeholder="Full Name" required
+                                class="w-full p-4 bg-slate-50/80 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-serva-500 focus:border-transparent outline-none transition">
+                            <textarea rows="5" placeholder="Your message..." required
+                                class="w-full p-4 bg-slate-50/80 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-serva-500 focus:border-transparent outline-none transition"></textarea>
+                            <button type="submit"
+                                class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg">Submit
+                                Feedback</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contactPage" class="page-section hidden page-transition">
+            <div class="section-warm py-16 sm:py-24">
+                <div class="max-w-4xl mx-auto px-4 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 font-display">Get in <em
+                            class="text-serva-500 italic" style="font-style: italic;">Touch</em></h1>
+                    <p class="text-lg text-slate-500 mb-12 sm:mb-16 max-w-lg mx-auto">Have questions? Reach out to our
+                        support team anytime.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                        <div class="contact-card">
+                            <div
+                                class="w-14 h-14 rounded-full bg-serva-50 text-serva-500 flex items-center justify-center text-2xl mx-auto mb-5">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p class="font-bold text-slate-900 text-lg mb-1">Email</p>
+                            <p class="text-slate-500">support@serva.com</p>
+                        </div>
+                        <div class="contact-card">
+                            <div
+                                class="w-14 h-14 rounded-full bg-serva-50 text-serva-500 flex items-center justify-center text-2xl mx-auto mb-5">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <p class="font-bold text-slate-900 text-lg mb-1">Phone</p>
+                            <p class="text-slate-500">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms Page -->
+        <div id="termsPage" class="page-section hidden page-transition">
+            <div class="section-warm py-16 sm:py-24">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-8 text-center font-display">Terms &
+                        Conditions</h1>
+                    <div class="bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-slate-100/80 space-y-8">
+                        <section>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3 font-display">1. Service Agreement</h3>
+                            <p class="text-slate-500 leading-relaxed">By using Serva, you agree to our terms of service
+                                and acceptable use policies.</p>
+                        </section>
+                        <section>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3 font-display">2. Booking Policy</h3>
+                            <p class="text-slate-500 leading-relaxed">Payments are negotiated directly with providers
+                                after sign-up via WhatsApp. Serva is not liable for indirect agreements made
+                                off-platform.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-green pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Branding Column -->
+                <div class="space-y-6">
+                    <img src="serva-logo-footer.png" alt="Serva" class="h-10 opacity-90">
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
+                        Your trusted marketplace for finding professional local services. Quality work, verified
+                        providers, and seamless bookings.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><button onclick="showHome()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Home</button></li>
+                        <li><button onclick="showAbout()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">About Us</button></li>
+                        <li><button onclick="showContact()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Contact</button></li>
+                        <li><button onclick="showFeedback()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Feedback</button></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Services</h4>
+                    <ul class="space-y-4">
+                        <li><button onclick="showCategoryServices('home')"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Home Services</button>
+                        </li>
+                        <li><button onclick="showCategoryServices('professional')"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Professional</button>
+                        </li>
+                        <li><button onclick="showCategoryServices('events')"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Events</button></li>
+                        <li><button onclick="showCategoryServices('tech')"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Tech Support</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Connect -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Connect</h4>
+                    <p class="text-slate-400 text-sm mb-6">Follow our journey and stay updated.</p>
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-700/30 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <p class="text-xs text-slate-500 font-medium whitespace-nowrap">&copy; 2024 Serva Marketplace. All
+                    rights reserved.</p>
+                <div class="flex items-center gap-8">
+                    <button onclick="showTerms()"
+                        class="text-xs text-slate-500 hover:text-white transition uppercase tracking-widest font-bold text-sm">Terms
+                        of Service</button>
+                    <button onclick="showTerms()"
+                        class="text-xs text-slate-500 hover:text-white transition uppercase tracking-widest font-bold text-sm">Privacy
+                        Policy</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Gift Box -->
+    <div class="fixed bottom-6 sm:bottom-8 right-6 sm:right-8 z-40 gift-box cursor-pointer" onclick="openGiftModal()">
+        <div
+            class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-2xl animate-gift-bounce">
+            <i class="fas fa-gift text-white text-xl sm:text-2xl"></i>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="giftModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"
+        onclick="closeModals(event)">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl relative">
+            <button onclick="closeModals()"
+                class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition"><i
+                    class="fas fa-times"></i></button>
+            <div class="text-5xl sm:text-6xl text-amber-500 mb-4 sm:mb-6"><i class="fas fa-gift"></i></div>
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-display">Claim Your Gift!</h2>
+            <p class="text-slate-600 mb-6 sm:mb-8 text-sm sm:text-base">Sign up today and get 20% off your first
+                booking.</p>
+            <button onclick="closeModals(); showCategories()"
+                class="w-full btn-primary text-white py-3 sm:py-4 rounded-xl font-bold text-lg">Start Booking</button>
+        </div>
+    </div>
+
+    <div id="bookingModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"
+        onclick="closeModals(event)">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeModals()"
+                class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition"><i
+                    class="fas fa-times"></i></button>
+            <div class="text-center mb-6 sm:mb-8">
+                <h2 class="text-2xl font-bold font-display mb-1">Join to Book</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Enter your email to connect via WhatsApp</p>
+            </div>
+            <form onsubmit="handleBooking(event)" class="space-y-4">
+                <input type="email" id="bookingEmail" placeholder="your@email.com" required
+                    class="w-full p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
+                <button type="submit" class="w-full btn-primary text-white py-4 rounded-xl font-bold text-lg">Connect to
+                    WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="offerModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"
+        onclick="closeModals(event)">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeModals()"
+                class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition"><i
+                    class="fas fa-times"></i></button>
+            <div class="text-center mb-6 sm:mb-8">
+                <h2 class="text-2xl font-bold font-display mb-1">Become a Provider</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Offer your services on Serva</p>
+            </div>
+            <form onsubmit="handleOffer(event)" class="space-y-4">
+                <input type="text" placeholder="Full Name" required
+                    class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
+                <input type="text" placeholder="Service offered (e.g. Plumbing)" required
+                    class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
+                <button type="submit"
+                    class="w-full btn-primary text-white py-3 sm:py-4 rounded-xl font-bold text-lg">Apply Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast"
+        class="fixed bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 w-[90%] sm:w-auto max-w-sm text-center bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-2xl z-[60] hidden transition-opacity">
+        <span id="toastMessage" class="text-sm sm:text-base">Message</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
