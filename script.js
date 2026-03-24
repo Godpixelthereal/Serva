@@ -197,7 +197,7 @@ function handleBooking(e) {
     const provider = providers.find(p => p.id === selectedProviderId);
     showToast(`Welcome! Redirecting to chat with ${provider.name}...`);
     setTimeout(() => {
-        window.open(`https://wa.me/1234567890?text=Hello, I would like to book your service: ${provider.name}. My email is ${email}`, '_blank');
+        window.open(`https://wa.me/+2348112174969?text=Hello, I would like to book your service: ${provider.name}. My email is ${email}`, '_blank');
         closeModals();
     }, 1500);
 }
