@@ -204,8 +204,15 @@ function handleBooking(e) {
 
 function handleOffer(e) {
     e.preventDefault();
-    showToast("Application submitted! We'll contact you soon.");
-    closeModals();
+    const form = e.target;
+    const name = form.querySelector('input[placeholder="Full Name"]').value;
+    const service = form.querySelector('input[placeholder="Service offered (e.g. Plumbing)"]').value;
+    showToast("Application submitted! Redirecting to WhatsApp...");
+    setTimeout(() => {
+        window.open(`https://wa.me/+2348112174969?text=Hello, I would like to offer my services on Serva.%0A%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}`, '_blank');
+        closeModals();
+        form.reset();
+    }, 1500);
 }
 
 function handleFeedback(e) {
