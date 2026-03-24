@@ -1,11 +1,11 @@
 // Data
 const categories = [
-    { id: 'home', name: 'Home Services', icon: 'fa-home', description: 'Cleaning, repairs, plumbing', color: 'from-blue-500 to-cyan-500' },
-    { id: 'professional', name: 'Professional Services', icon: 'fa-briefcase', description: 'Legal, accounting, marketing', color: 'from-violet-500 to-purple-500' },
-    { id: 'personal', name: 'Personal Care', icon: 'fa-spa', description: 'Beauty, fitness, wellness', color: 'from-pink-500 to-rose-500' },
-    { id: 'events', name: 'Event Services', icon: 'fa-calendar-star', description: 'Catering, photography, decor', color: 'from-amber-500 to-orange-500' },
-    { id: 'tech', name: 'Tech Support', icon: 'fa-laptop-code', description: 'IT support, coding, repair', color: 'from-emerald-500 to-green-500' },
-    { id: 'transport', name: 'Transport', icon: 'fa-car', description: 'Moving, delivery, logistics', color: 'from-red-500 to-rose-500' }
+    { id: 'home', name: 'Home Services', icon: 'fa-home', description: 'Cleaning, repairs, plumbing', gradient: 'linear-gradient(135deg, #667eea, #764ba2)' },
+    { id: 'professional', name: 'Professional Services', icon: 'fa-briefcase', description: 'Legal, accounting, marketing', gradient: 'linear-gradient(135deg, #f093fb, #f5576c)' },
+    { id: 'personal', name: 'Personal Care', icon: 'fa-spa', description: 'Beauty, fitness, wellness', gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)' },
+    { id: 'events', name: 'Event Services', icon: 'fa-calendar-star', description: 'Catering, photography, decor', gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)' },
+    { id: 'tech', name: 'Tech Support', icon: 'fa-laptop-code', description: 'IT support, coding, repair', gradient: 'linear-gradient(135deg, #fa709a, #fee140)' },
+    { id: 'transport', name: 'Transport', icon: 'fa-car', description: 'Moving, delivery, logistics', gradient: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' }
 ];
 
 const allServices = [
@@ -16,9 +16,9 @@ const allServices = [
 ];
 
 const providers = [
-    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Downtown', price: 85, rating: 4.8, images: ['fa-broom', 'fa-spray-can'], about: '5 years of experience in eco-friendly cleaning.' },
-    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Uptown', price: 75, rating: 4.5, images: ['fa-broom'], about: 'Fast and reliable cleaning services.' },
-    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Suburbs', price: 60, rating: 4.9, images: ['fa-wrench'], about: 'Certified plumber with 10+ years exp.' }
+    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Downtown', price: 85, rating: 4.8, images: ['fa-broom', 'fa-spray-can'], about: '5 years of experience in eco-friendly cleaning.', banner: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
+    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Uptown', price: 75, rating: 4.5, images: ['fa-broom'], about: 'Fast and reliable cleaning services.', banner: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Suburbs', price: 60, rating: 4.9, images: ['fa-wrench'], about: 'Certified plumber with 10+ years exp.', banner: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
 ];
 
 let currentFeedbackTab = 'suggestion';
@@ -38,13 +38,19 @@ function toggleMobileMenu() { document.getElementById('mobileMenu').classList.to
 function renderCategories() {
     const grid = document.getElementById('categoriesGrid');
     if (!grid) return;
+    const serviceCounts = {};
+    categories.forEach(cat => { serviceCounts[cat.id] = allServices.filter(s => s.catId === cat.id).length; });
     grid.innerHTML = categories.map(cat => `
-        <div class="category-card-premium group" onclick="showCategoryServices('${cat.id}')">
-            <div class="category-icon-wrapper">
+        <div class="category-card-v2 group" onclick="showCategoryServices('${cat.id}')">
+            <div class="cat-icon-v2" style="background: ${cat.gradient};">
                 <i class="fas ${cat.icon}"></i>
             </div>
-            <h3 class="text-xl font-bold mb-3 font-display text-slate-900">${cat.name}</h3>
-            <p class="text-slate-500 leading-relaxed">${cat.description}</p>
+            <h3 class="text-xl font-bold mb-2 font-display text-slate-900">${cat.name}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-5">${cat.description}</p>
+            <div class="flex items-center justify-between mt-auto">
+                <span class="text-xs font-bold text-serva-500 bg-serva-50 px-3 py-1 rounded-full">${serviceCounts[cat.id]} service${serviceCounts[cat.id] !== 1 ? 's' : ''}</span>
+                <span class="text-slate-300 group-hover:text-serva-500 group-hover:translate-x-1 transition-all"><i class="fas fa-arrow-right"></i></span>
+            </div>
         </div>
     `).join('');
 }
@@ -121,53 +127,50 @@ function showProviders(serviceId) {
             </div>
             <p class="text-sm text-slate-400 font-medium">${filteredProviders.length} professionals found</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             ${filteredProviders.map(p => `
-                <div class="bg-white rounded-[32px] p-8 sm:p-10 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-serva-50 rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
-                    
-                    <div class="relative z-10">
-                        <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 mb-8">
-                            <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 bg-serva-100 rounded-3xl flex items-center justify-center text-3xl font-bold text-serva-600 shadow-inner">${p.name[0]}</div>
-                            <div class="flex-1">
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                    <h3 class="text-2xl font-bold text-slate-900 font-display">${p.name}</h3>
-                                    <div class="flex items-center justify-center sm:justify-start gap-1">
-                                        <div class="text-amber-400 flex text-sm">
-                                            ${'<i class="fas fa-star"></i>'.repeat(Math.floor(p.rating))}
-                                        </div>
-                                        <span class="text-slate-900 font-bold text-sm">${p.rating}</span>
-                                    </div>
-                                </div>
-                                <p class="text-slate-500 text-sm flex items-center justify-center sm:justify-start gap-2"><i class="fas fa-map-marker-alt text-serva-500 text-xs"></i> ${p.location}</p>
-                                <div class="mt-3 flex flex-wrap justify-center sm:justify-start gap-2">
-                                    <span class="px-3 py-1 bg-serva-50 text-serva-600 text-[10px] uppercase tracking-widest font-bold rounded-full">Top Rated</span>
-                                    <span class="px-3 py-1 bg-slate-50 text-slate-600 text-[10px] uppercase tracking-widest font-bold rounded-full">Verified</span>
-                                </div>
+                <div class="provider-card-v2 group">
+                    <!-- Banner -->
+                    <div class="provider-banner" style="background: ${p.banner};">
+                        <div class="provider-banner-overlay"></div>
+                        <div class="provider-badge-row">
+                            <span class="provider-badge-verified"><i class="fas fa-check-circle"></i> Verified</span>
+                        </div>
+                    </div>
+
+                    <!-- Avatar -->
+                    <div class="provider-avatar-wrapper">
+                        <div class="provider-avatar">${p.name[0]}</div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="provider-info">
+                        <h3 class="text-xl font-bold text-slate-900 font-display mb-1">${p.name}</h3>
+                        <p class="text-sm text-slate-400 mb-5">${p.about}</p>
+
+                        <!-- Stats Row -->
+                        <div class="provider-stats">
+                            <div class="provider-stat">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="provider-stat-value">${p.rating}</span>
+                                <span class="provider-stat-label">Rating</span>
+                            </div>
+                            <div class="provider-stat">
+                                <i class="fas fa-tag text-serva-500"></i>
+                                <span class="provider-stat-value">$${p.price}</span>
+                                <span class="provider-stat-label">per hour</span>
+                            </div>
+                            <div class="provider-stat">
+                                <i class="fas fa-map-marker-alt text-rose-400"></i>
+                                <span class="provider-stat-value">${p.location}</span>
+                                <span class="provider-stat-label">Location</span>
                             </div>
                         </div>
 
-                        <div class="mb-10">
-                            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Professional Bio</h4>
-                            <p class="text-slate-600 leading-relaxed mb-6">${p.about}</p>
-                            
-                            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Recent Gallery</h4>
-                            <div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
-                                ${p.images.map(img => `
-                                    <div class="w-24 h-24 shrink-0 bg-slate-50 rounded-2xl flex items-center justify-center text-2xl text-slate-300 border border-slate-100 hover:border-serva-300 transition-colors">
-                                        <i class="fas ${img}"></i>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-slate-100 gap-6">
-                            <div class="text-center sm:text-left">
-                                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Service Fee</p>
-                                <p class="text-3xl font-bold text-slate-900">$${p.price}<span class="text-sm text-slate-400 font-medium">/hr</span></p>
-                            </div>
-                            <button onclick="openBookingModal(${p.id})" class="w-full sm:w-auto px-10 py-4 bg-slate-900 text-white rounded-2xl font-bold text-lg hover:bg-serva-600 transition-colors shadow-lg shadow-slate-900/10">Book Now</button>
-                        </div>
+                        <!-- CTA -->
+                        <button onclick="openBookingModal(${p.id})" class="provider-cta">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             `).join('')}
