@@ -113,6 +113,7 @@
     <main class="pt-20">
         <div id="homePage" class="page-section">
             <section class="relative min-h-[90vh] flex flex-col items-center overflow-hidden hero-light">
+                <div class="blue-bloom"></div>
                 <!-- Top Content -->
                 <div
                     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-16 sm:pt-24 pb-8 text-center">
@@ -135,11 +136,23 @@
                         Connect with verified service providers for all your needs; from repairs and maintenance to lifestyle needs.
                     </p>
 
-                    <!-- CTA Button -->
-                    <button onclick="showCategories()"
-                        class="btn-primary text-white px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg shadow-serva-500/30 hover:shadow-xl hover:shadow-serva-500/40 transition-all animate-slide-up">
-                        Book a Service
-                    </button>
+                    <!-- CTA + Search -->
+                    <div class="flex flex-col items-center gap-6 animate-slide-up">
+                        <button onclick="showCategories()"
+                            class="btn-primary text-white px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg shadow-serva-500/30 hover:shadow-xl hover:shadow-serva-500/40 transition-all">
+                            Book a Service
+                        </button>
+                        
+                        <!-- Search Bar -->
+                        <div class="relative w-full max-w-md group">
+                            <input type="text" id="visibleHeroSearch" placeholder="Search for any service..." 
+                                class="w-full px-6 py-4 bg-white/80 backdrop-blur-md border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-serva-500 focus:border-transparent outline-none transition-all pr-12 text-slate-700"
+                                onkeyup="if(event.key === 'Enter') performVisibleSearch()">
+                            <button onclick="performVisibleSearch()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-serva-500 transition-colors">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Polaroid Cards on Clothesline -->
@@ -150,62 +163,62 @@
                     <!-- Cards Container -->
                     <div class="flex justify-center gap-3 sm:gap-6 overflow-x-auto pb-4 px-2 hide-scrollbar snap-x snap-mandatory"
                         id="heroCards">
-                        <!-- Card 1: Home Services -->
+                        <!-- Card 1: Maintenance -->
                         <div class="polaroid-card snap-center" style="--rotation: -6deg;">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
-                                <img src="img-home.png" alt="Home Services" class="polaroid-img">
+                                <img src="maintenance.png" alt="Maintenance" class="polaroid-img">
                                 <div class="polaroid-caption">
-                                    <h4 class="font-bold text-sm text-slate-900">Home Services</h4>
-                                    <p class="text-xs text-slate-500">Cleaning, repairs & more</p>
+                                    <h4 class="font-bold text-sm text-slate-900">Maintenance</h4>
+                                    <p class="text-xs text-slate-500">Cleaning, Fumigation & more</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 2: Professional -->
+                        <!-- Card 2: Repairs -->
                         <div class="polaroid-card snap-center" style="--rotation: 3deg;">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
-                                <img src="img-professional.png" alt="Professional Services" class="polaroid-img">
+                                <img src="repairs.png" alt="Repairs" class="polaroid-img">
                                 <div class="polaroid-caption">
-                                    <h4 class="font-bold text-sm text-slate-900">Professional</h4>
-                                    <p class="text-xs text-slate-500">Legal, accounting & marketing</p>
+                                    <h4 class="font-bold text-sm text-slate-900">Repairs</h4>
+                                    <p class="text-xs text-slate-500">Plumbing, Welding & more</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 3: Personal Care -->
+                        <!-- Card 3: Electrical -->
                         <div class="polaroid-card snap-center" style="--rotation: -2deg;">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
-                                <img src="img-personal.png" alt="Personal Care" class="polaroid-img">
+                                <img src="electrical.png" alt="Electrical" class="polaroid-img">
                                 <div class="polaroid-caption">
-                                    <h4 class="font-bold text-sm text-slate-900">Personal Care</h4>
-                                    <p class="text-xs text-slate-500">Beauty, fitness & wellness</p>
+                                    <h4 class="font-bold text-sm text-slate-900">Electrical</h4>
+                                    <p class="text-xs text-slate-500">Wiring, Fixtures & more</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 4: Events -->
+                        <!-- Card 4: Logistics -->
                         <div class="polaroid-card snap-center" style="--rotation: 5deg;">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
-                                <img src="img-events.png" alt="Event Services" class="polaroid-img">
+                                <img src="logistics.png" alt="Logistics" class="polaroid-img">
                                 <div class="polaroid-caption">
-                                    <h4 class="font-bold text-sm text-slate-900">Events</h4>
-                                    <p class="text-xs text-slate-500">Catering, photography & decor</p>
+                                    <h4 class="font-bold text-sm text-slate-900">Logistics</h4>
+                                    <p class="text-xs text-slate-500">Moving, Errands & more</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 5: Tech -->
+                        <!-- Card 5: Lifestyle -->
                         <div class="polaroid-card snap-center" style="--rotation: -4deg;">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
-                                <img src="img-tech.png" alt="Tech Support" class="polaroid-img">
+                                <img src="lifestyle.png" alt="Lifestyle" class="polaroid-img">
                                 <div class="polaroid-caption">
-                                    <h4 class="font-bold text-sm text-slate-900">Tech Support</h4>
-                                    <p class="text-xs text-slate-500">IT support, coding & repair</p>
+                                    <h4 class="font-bold text-sm text-slate-900">Lifestyle</h4>
+                                    <p class="text-xs text-slate-500">Shopping, Tailoring & more</p>
                                 </div>
                             </div>
                         </div>
@@ -347,21 +360,17 @@
                         <div class="relative flex justify-center">
                             <div class="green-feature-visual green-feature-visual-4">
                                 <div class="feature-stat-card">
-                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="clientsCounter">0
+                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="servicesCounter">0
                                     </div>
-                                    <p class="text-sm text-slate-500 font-medium">Clients Served</p>
-                                </div>
-                                <div class="feature-stat-card">
-                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="servicesCounter">
-                                        0</div>
                                     <p class="text-sm text-slate-500 font-medium">Available Services</p>
                                 </div>
                                 <div class="feature-stat-card">
-                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="providersCounter">0</div>
-                                    <p class="text-sm text-slate-500 font-medium">Partner Providers</p>
+                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="trustCount">
+                                        0</div>
+                                    <p class="text-sm text-slate-500 font-medium">Happy Clients</p>
                                 </div>
                                 <div class="feature-stat-card">
-                                    <div class="text-3xl sm:text-4xl font-bold text-serva-500 mb-1">98%</div>
+                                    <div class="text-3xl sm:text-4xl font-bold gradient-text mb-1" id="satisfactionCounter">0</div>
                                     <p class="text-sm text-slate-500 font-medium">Satisfaction Rate</p>
                                 </div>
                             </div>
@@ -373,8 +382,7 @@
             <!-- Trust Badges -->
             <section class="py-10 sm:py-14 bg-white border-y border-slate-100">
                 <div class="max-w-5xl mx-auto px-4 text-center">
-                    <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-6">Trusted by <span id="trustCount">2,000+</span> happy
-                        clients</p>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-6">Trusted by Individuals. Families. Contractors. Companies. SMEs. NGOs.</p>
                     <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                         <div class="trust-badge"><i class="fas fa-building"></i> Company</div>
                         <div class="trust-badge"><i class="fas fa-briefcase"></i> Business</div>
@@ -401,27 +409,24 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                         <div class="step-card">
                             <div class="step-number">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Search for a Service</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">Browse our categories and find the
-                                exact service you need from our wide range of offerings.</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Find a Provider</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Browse through a wide range of verified, skilled professionals across multiple service categories.</p>
                         </div>
                         <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Choose a Provider</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">Choose a preferred service provider
-                                within your location and review their profile.</p>
+                            <div class="step-number step-blue">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Choose & Filter</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">Choose a preferred service provider within your location. Filter by location, ratings, and pricing.</p>
                         </div>
                         <div class="step-card">
-                            <div class="step-number">3</div>
+                            <div class="step-number step-yellow">3</div>
                             <h3 class="text-xl font-bold text-slate-900 mb-3 font-display">Sign Up & Pay</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">Sign up and make payment to
-                                confirm your booking securely.</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">Create your account in minutes, conclude your booking, and pay securely.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Featured Services (dynamic) -->
+            <!-- Featured Services (hardcoded list) -->
             <section class="py-16 sm:py-24 bg-white">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="text-center mb-12 sm:mb-16">
@@ -429,7 +434,59 @@
                         </h2>
                         <p class="text-slate-500">Top picks for you this week</p>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" id="featuredServices">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                        <!-- Cleaning -->
+                        <div class="service-card-new" onclick="showProviders(1)">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Deep Cleaning</h3>
+                            <p class="text-sm text-slate-500 mb-8 leading-relaxed">Thorough home, office, and post-construction cleaning services.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-broom"></i>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-serva-600 uppercase tracking-widest font-bold">Top Rated</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Plumbing -->
+                        <div class="service-card-new" onclick="showProviders(2)">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Expert Plumbing</h3>
+                            <p class="text-sm text-slate-500 mb-8 leading-relaxed">Fixing leaks, pipe installations, and drainage issues.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-faucet"></i>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-serva-600 uppercase tracking-widest font-bold">In High Demand</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Shopping -->
+                        <div class="service-card-new" onclick="showProviders(9)">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Shopping</h3>
+                            <p class="text-sm text-slate-500 mb-8 leading-relaxed">Personal shopping for essentials and other needs.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-serva-600 uppercase tracking-widest font-bold">Quick Delivery</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Laundry -->
+                        <div class="service-card-new" onclick="showProviders(14)">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Laundry</h3>
+                            <p class="text-sm text-slate-500 mb-8 leading-relaxed">Washing, drying, ironing, and folding services.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="w-11 h-11 rounded-full bg-serva-500 text-white flex items-center justify-center text-lg">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-serva-600 uppercase tracking-widest font-bold">Professional</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -476,45 +533,74 @@
             </div>
             <div class="max-w-7xl mx-auto px-4 py-8 sm:py-12" id="providerDetailsContainer"></div>
         </div>
+        <!-- Provider Profile Page -->
+        <div id="providerProfilePage" class="page-section hidden page-transition">
+            <div class="section-green py-12 sm:py-16 px-4 md:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <button onclick="hideAllPages(); showProviders(currentServiceId)"
+                        class="text-slate-500 hover:text-slate-900 mb-4 flex items-center gap-2 text-sm sm:text-base transition"><i
+                            class="fas fa-arrow-left"></i> Back to Providers</button>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 font-display">Provider Profile</h1>
+                </div>
+            </div>
+            <div class="max-w-4xl mx-auto px-4 py-8 sm:py-12" id="profileDetails"></div>
+        </div>
 
         <!-- About Page -->
         <div id="aboutPage" class="page-section hidden page-transition">
             <div class="section-warm py-16 sm:py-24">
-                <div class="max-w-4xl mx-auto px-4 text-center">
-                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 sm:mb-8 font-display">About <em
+                <div class="max-w-4xl mx-auto px-4">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-8 text-center font-display">About <em
                             class="text-serva-500 italic" style="font-style: italic;">Serva</em></h1>
-                    <p class="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mb-12">
-                        Serva is a next-generation platform designed to seamlessly connect service seekers with
-                        verified, professional service providers.
-                    </p>
-                </div>
-                <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="about-value-card">
-                        <div
-                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
-                            <i class="fas fa-shield-alt"></i>
+                    <div class="prose prose-slate max-w-none text-slate-600 space-y-6 text-lg leading-relaxed">
+                        <p>
+                            Coined from "Server", Serva was created to serve the modern society. As our tagline "here to serve you" goes, Serva exists to serve by bridging the gap between skilled service providers and the people who need them.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                                <h3 class="text-xl font-bold text-slate-900 mb-4 font-display">Our Vision</h3>
+                                <p>To empower SMEs with exposure, excellence, and longevity.</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                                <h3 class="text-xl font-bold text-slate-900 mb-4 font-display">Our Mission</h3>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>To increase visibility and profitability for SMEs within their immediate location.</li>
+                                    <li>To bring unlimited service options to the fingertips of locals.</li>
+                                </ul>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Verified Providers</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Every professional on our platform is
-                            thoroughly vetted for quality and reliability.</p>
-                    </div>
-                    <div class="about-value-card">
-                        <div
-                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
-                            <i class="fas fa-bolt"></i>
+
+                        <p class="mt-8">
+                            Serva addresses three critical challenges in the local service economy: poor visibility for skilled artisans and SMEs, limited access to reliable services for households, and the declining interest in traditional skills among younger generations; thereby supporting SDGs 1, 8, 9, and 10.
+                        </p>
+
+                        <div class="space-y-8 mt-12">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-xl font-display mb-2 border-b-2 border-serva-500 inline-block">For business owners</h4>
+                                <p>We showcase your services to a larger audience while partnering with you to raise your business standards, quality, and delivery.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-xl font-display mb-2 border-b-2 border-serva-500 inline-block">For you</h4>
+                                <p>Whether you’ve just relocated, experienced a change in status, unforeseen circumstances, or simply don’t know where to look; we make a wide variety services accessible to you at no extra cost.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-xl font-display mb-2 border-b-2 border-serva-500 inline-block">For the future</h4>
+                                <p>We invest in tomorrow’s leaders through partnerships with service providers to offer both paid and sponsored skills acquisition for youth, ensuring business continuity and the preservation of valuable knowledge.</p>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Instant Connect</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Get connected with service providers instantly
-                            through WhatsApp for quick communication.</p>
-                    </div>
-                    <div class="about-value-card">
-                        <div
-                            class="w-12 h-12 rounded-full bg-serva-500 text-white flex items-center justify-center text-xl mb-4">
-                            <i class="fas fa-heart"></i>
+
+                        <div class="flex flex-wrap justify-center gap-6 mt-16 pt-12 border-t border-slate-100">
+                            <div class="flex items-center gap-3 text-serva-600 font-bold uppercase tracking-widest text-sm">
+                                <i class="fas fa-check-circle"></i> Verified providers
+                            </div>
+                            <div class="flex items-center gap-3 text-serva-600 font-bold uppercase tracking-widest text-sm">
+                                <i class="fas fa-bolt"></i> Instant connect
+                            </div>
+                            <div class="flex items-center gap-3 text-serva-600 font-bold uppercase tracking-widest text-sm">
+                                <i class="fas fa-heart"></i> Satisfaction first
+                            </div>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900 mb-2 font-display">Satisfaction First</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">We prioritize your satisfaction with every
-                            booking and service interaction.</p>
                     </div>
                 </div>
             </div>
@@ -556,8 +642,7 @@
                 <div class="max-w-4xl mx-auto px-4 text-center">
                     <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 font-display">Get in <em
                             class="text-serva-500 italic" style="font-style: italic;">Touch</em></h1>
-                    <p class="text-lg text-slate-500 mb-12 sm:mb-16 max-w-lg mx-auto">Have questions? Reach out to our
-                        support team anytime.</p>
+                    <p class="text-lg text-slate-500 mb-12 sm:mb-16 max-w-lg mx-auto">Questions? Suggestions? Feedback? Reach out to our team anytime.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                         <div class="contact-card">
                             <div
@@ -594,9 +679,7 @@
                         </section>
                         <section>
                             <h3 class="text-lg font-bold text-slate-900 mb-3 font-display">2. Booking Policy</h3>
-                            <p class="text-slate-500 leading-relaxed">Payments are negotiated directly with providers
-                                after sign-up via WhatsApp. Serva is not liable for indirect agreements made
-                                off-platform.</p>
+                            <p class="text-slate-500 leading-relaxed">Payments are concluded after sign-up via WhatsApp. Serva is not liable for indirect agreements made off-platform.</p>
                         </section>
                     </div>
                 </div>
@@ -606,61 +689,128 @@
         <!-- Guarantee Page -->
         <div id="guaranteePage" class="page-section hidden page-transition">
             <div class="section-green py-16 sm:py-24 text-center px-4">
-                <div class="max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto text-center">
                     <div class="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-serva-500 text-4xl shadow-xl mx-auto mb-8 animate-gift-bounce">
                         <i class="fas fa-shield-check"></i>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 font-display mb-6">Our <em class="text-serva-600 italic" style="font-style: italic;">Satisfaction</em> Guarantee</h1>
-                    <p class="text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto mb-10">
-                        At Serva, your peace of mind is our top priority. We stand behind every service booked through our platform.
+                    <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 font-display mb-6">Our Commitment to You</h1>
+                    <p class="text-slate-600 text-lg sm:text-xl max-w-3xl mx-auto">
+                        At Serva, your trust means everything to us. We have put strong systems in place to ensure quality service, safety, transparency, and peace of mind for both service users and service providers.
                     </p>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 -mt-8 sm:-mt-12 pb-24">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-lg border border-slate-100">
-                        <div class="w-14 h-14 bg-serva-50 text-serva-500 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                            <i class="fas fa-user-shield"></i>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- For Service Users -->
+                    <div class="space-y-6">
+                        <div class="bg-slate-900 text-white p-6 rounded-3xl sticky top-24 z-10 shadow-xl">
+                            <h3 class="text-2xl font-bold font-display flex items-center gap-3">
+                                <i class="fas fa-user-check text-serva-400"></i> For Service Users
+                            </h3>
+                            <p class="text-slate-400 text-sm mt-1">Ensuring your utmost satisfaction every time.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 font-display">Professional Supervision</h3>
-                        <p class="text-slate-500 leading-relaxed">
-                            We don't just connect you; we supervise. Our team of professionals monitors high-value bookings to ensure quality standards are met and timelines are respected.
-                        </p>
+                        
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">1. Simple Booking Experience</div>
+                                <p class="text-sm text-slate-500">Our platform is designed to make booking services quick, easy, and stress-free.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">2. Secure Payments (Escrow System)</div>
+                                <p class="text-sm text-slate-500">All payments are made directly to Serva, not the service provider, ensuring full protection through our trusted escrow system.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">3. Risk-Free Guarantee</div>
+                                <p class="text-sm text-slate-500">A portion of your payment is held as a risk fee and is refundable in cases of verified dissatisfaction.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">4. Thoroughly Vetted Professionals</div>
+                                <p class="text-sm text-slate-500">Every service provider is carefully screened and verified using valid, nationally recognized identification and documentation.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">5. Pay Only for Satisfaction</div>
+                                <p class="text-sm text-slate-500">Service providers are only paid after you confirm that the job has been completed satisfactorily and to standard.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">6. Live Service Tracking</div>
+                                <p class="text-sm text-slate-500">You receive updates throughout the service process, so you’re always informed and in control.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">7. Quality Assurance & Supervision</div>
+                                <p class="text-sm text-slate-500">We monitor service delivery to ensure it meets our quality standards.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">8. Trained and Improved Professionals</div>
+                                <p class="text-sm text-slate-500">Our service providers undergo regular training to improve their skills, professionalism, and service delivery.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">9. Reliable Support System</div>
+                                <p class="text-sm text-slate-500">Our team is available to handle complaints, resolve issues, and ensure a smooth experience.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">10. Transparency & No Hidden Charges</div>
+                                <p class="text-sm text-slate-500">What you see is what you pay, no hidden costs, no surprises.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-lg border border-slate-100">
-                        <div class="w-14 h-14 bg-serva-50 text-serva-500 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                            <i class="fas fa-check-double"></i>
+                    <!-- For Service Providers -->
+                    <div class="space-y-6">
+                        <div class="bg-serva-600 text-white p-6 rounded-3xl sticky top-24 z-10 shadow-xl">
+                            <h3 class="text-2xl font-bold font-display flex items-center gap-3">
+                                <i class="fas fa-tools text-serva-200"></i> For Service Providers
+                            </h3>
+                            <p class="text-serva-100 text-sm mt-1">Helping you grow, earn more, and scale.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 font-display">100% Satisfaction</h3>
-                        <p class="text-slate-500 leading-relaxed">
-                            If you're not happy with the quality of service provided, we will work with the service provider to make it right, or offer a mediated resolution.
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-lg border border-slate-100">
-                        <div class="w-14 h-14 bg-serva-50 text-serva-500 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                            <i class="fas fa-id-card"></i>
+                        
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">1. Guaranteed Payment Security</div>
+                                <p class="text-sm text-slate-500">Clients pay before service begins, ensuring your earnings are secured from the start.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">2. Increased Local Visibility</div>
+                                <p class="text-sm text-slate-500">We connect you with clients within your immediate location, helping you get more jobs while reducing transport stress.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">3. Clear Communication Management</div>
+                                <p class="text-sm text-slate-500">We help manage communication with clients, including updates on any changes or challenges.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">4. Verified Customer Requests</div>
+                                <p class="text-sm text-slate-500">All service requests go through our system, reducing the chances of fraudulent or unserious clients.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">5. Structured Job Flow</div>
+                                <p class="text-sm text-slate-500">You receive clear job details, expectations, and timelines before starting any service.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">6. Performance-Based Payment Release</div>
+                                <p class="text-sm text-slate-500">Payments are processed promptly after confirmed satisfactory delivery.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">7. Increased Visibility & Opportunities</div>
+                                <p class="text-sm text-slate-500">We connect you with more customers within your location, helping you grow your business.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">8. Training & Capacity Development</div>
+                                <p class="text-sm text-slate-500">We provide ongoing training and support to help you improve your service quality and professionalism.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">9. Fair Dispute Resolution</div>
+                                <p class="text-sm text-slate-500">In cases of disputes, we act as a neutral party to ensure fair and balanced outcomes.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                                <div class="font-bold text-slate-900 mb-1">10. Business Growth Support</div>
+                                <p class="text-sm text-slate-500">We help you build structure, credibility, and long-term sustainability for your business.</p>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 font-display">Vetted Providers</h3>
-                        <p class="text-slate-500 leading-relaxed">
-                            Every provider on our platform undergoes a multi-step verification process, including identity checks and work history verification.
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-lg border border-slate-100">
-                        <div class="w-14 h-14 bg-serva-50 text-serva-500 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 font-display">24/7 Support</h3>
-                        <p class="text-slate-500 leading-relaxed">
-                            Our dedicated support team is available around the clock to assist with any issues, bookings, or questions you might have.
-                        </p>
                     </div>
                 </div>
 
-                <div class="mt-16 text-center">
+                <div class="mt-20 text-center">
+                    <p class="text-slate-500 mb-8 font-medium">Serva, here to serve you</p>
                     <button onclick="showHome()" class="btn-primary text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-serva-500/30">
                         Back to Home
                     </button>
@@ -677,8 +827,7 @@
                 <div class="space-y-6">
                     <img src="serva-logo-footer.png" alt="Serva" class="h-10 opacity-90">
                     <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
-                        Your trusted marketplace for finding professional local services. Quality work, verified
-                        providers, and seamless bookings.
+                        Your trusted marketplace for finding professional local services. Quality delivery, verified providers, and stressfree bookings.
                     </p>
                 </div>
 
@@ -802,6 +951,10 @@
             </div>
             <form onsubmit="handleOffer(event)" class="space-y-4">
                 <input type="text" placeholder="Full Name" required
+                    class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
+                <input type="tel" placeholder="Phone Number (WhatsApp)" required
+                    class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
+                <input type="text" placeholder="Location (e.g. Ifite)" required
                     class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">
                 <input type="text" placeholder="Service offered (e.g. Plumbing)" required
                     class="w-full p-3 sm:p-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-serva-500 border-none outline-none">

@@ -1,3 +1,16 @@
+:root {
+    --serva-blue: #254B96;
+    --serva-green-light: #27B376;
+    --serva-green-dark: #006F3C;
+    --serva-yellow: #FAA73F;
+    --serva-red: #BF212F;
+}
+
+.text-serva-blue { color: var(--serva-blue); }
+.text-serva-green { color: var(--serva-green-light); }
+.bg-serva-blue { background-color: var(--serva-blue); }
+.bg-serva-yellow { background-color: var(--serva-yellow); }
+
 body {
     font-family: 'Inter', sans-serif;
 }
@@ -53,7 +66,7 @@ h6 {
     left: -20%;
     width: 60%;
     height: 100%;
-    background: radial-gradient(circle, rgba(39, 179, 118, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(39, 179, 118, 0.08) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -64,8 +77,19 @@ h6 {
     right: -20%;
     width: 50%;
     height: 80%;
-    background: radial-gradient(circle, rgba(37, 75, 150, 0.04) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(250, 167, 63, 0.08) 0%, transparent 70%);
     pointer-events: none;
+}
+
+.hero-light .blue-bloom {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(37, 75, 150, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Clothesline */
@@ -173,13 +197,18 @@ h6 {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #27B376 0%, #006F3C 100%);
+    background: linear-gradient(135deg, var(--serva-green-light) 0%, var(--serva-green-dark) 100%);
     transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-secondary {
+    background: linear-gradient(135deg, var(--serva-blue) 0%, #1a3270 100%);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px -10px rgba(39, 179, 118, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 }
 
 .nav-link {
@@ -255,7 +284,7 @@ h6 {
 }
 
 .price-tag {
-    background: linear-gradient(135deg, #FAA73F 0%, #e8942e 100%);
+    background: linear-gradient(135deg, var(--serva-yellow) 0%, #e8942e 100%);
 }
 
 .whatsapp-btn {
@@ -294,7 +323,7 @@ h6 {
 }
 
 .star-rating {
-    color: #FAA73F;
+    color: var(--serva-yellow);
 }
 
 .blob {
@@ -384,7 +413,7 @@ h6 {
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #27B376 0%, #006F3C 100%);
+    background: linear-gradient(135deg, var(--serva-green-light) 0%, var(--serva-green-dark) 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -394,6 +423,9 @@ h6 {
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
 }
+
+.step-number.step-blue { background: linear-gradient(135deg, var(--serva-blue) 0%, #1a3270 100%); }
+.step-number.step-yellow { background: linear-gradient(135deg, var(--serva-yellow) 0%, #e8942e 100%); }
 
 /* Trust Badges */
 .trust-badge {
@@ -669,7 +701,7 @@ h6 {
     align-items: center;
     padding: 10px 20px;
     border-radius: 999px;
-    background: #27B376;
+    background: var(--serva-blue);
     color: white;
     font-weight: 700;
     font-size: 0.85rem;
@@ -681,9 +713,9 @@ h6 {
 }
 
 .provider-book-btn:hover {
-    background: #006F3C;
+    background: #1a3270;
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(39, 179, 118, 0.4);
+    box-shadow: 0 6px 16px rgba(37, 75, 150, 0.4);
 }
 
 /* Service List Cards */
