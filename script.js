@@ -16,9 +16,9 @@ const allServices = [
 ];
 
 const providers = [
-    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Downtown', price: 85, rating: 4.8, images: ['fa-broom', 'fa-spray-can'], about: '5 years of experience in eco-friendly cleaning.', banner: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Uptown', price: 75, rating: 4.5, images: ['fa-broom'], about: 'Fast and reliable cleaning services.', banner: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Suburbs', price: 60, rating: 4.9, images: ['fa-wrench'], about: 'Certified plumber with 10+ years exp.', banner: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
+    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Downtown', price: 85, rating: 4.8, photo: 'provider-sarah.png', about: '5 years of experience in eco-friendly cleaning.', jobs: 527 },
+    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Uptown', price: 75, rating: 4.5, photo: 'provider-ecoshine.png', about: 'Fast and reliable cleaning services.', jobs: 413 },
+    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Suburbs', price: 60, rating: 4.9, photo: 'provider-john.png', about: 'Certified plumber with 10+ years experience.', jobs: 612 }
 ];
 
 let currentFeedbackTab = 'suggestion';
@@ -130,47 +130,42 @@ function showProviders(serviceId) {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             ${filteredProviders.map(p => `
                 <div class="provider-card-v2 group">
-                    <!-- Banner -->
-                    <div class="provider-banner" style="background: ${p.banner};">
-                        <div class="provider-banner-overlay"></div>
-                        <div class="provider-badge-row">
-                            <span class="provider-badge-verified"><i class="fas fa-check-circle"></i> Verified</span>
-                        </div>
-                    </div>
-
-                    <!-- Avatar -->
-                    <div class="provider-avatar-wrapper">
-                        <div class="provider-avatar">${p.name[0]}</div>
+                    <!-- Photo -->
+                    <div class="provider-photo-wrap">
+                        <img src="${p.photo}" alt="${p.name}" class="provider-photo">
                     </div>
 
                     <!-- Info -->
                     <div class="provider-info">
-                        <h3 class="text-xl font-bold text-slate-900 font-display mb-1">${p.name}</h3>
-                        <p class="text-sm text-slate-400 mb-5">${p.about}</p>
+                        <h3 class="text-lg font-bold text-slate-900 font-display">${p.name}</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mt-1 mb-4">${p.about}</p>
 
                         <!-- Stats Row -->
-                        <div class="provider-stats">
-                            <div class="provider-stat">
+                        <div class="provider-stats-row">
+                            <div class="provider-stat-item">
+                                <i class="fas fa-user-check text-slate-400"></i>
+                                <span class="font-bold text-slate-800">${p.jobs}</span>
+                            </div>
+                            <div class="provider-stat-item">
                                 <i class="fas fa-star text-amber-400"></i>
-                                <span class="provider-stat-value">${p.rating}</span>
-                                <span class="provider-stat-label">Rating</span>
+                                <span class="font-bold text-slate-800">${p.rating}</span>
                             </div>
-                            <div class="provider-stat">
-                                <i class="fas fa-tag text-serva-500"></i>
-                                <span class="provider-stat-value">$${p.price}</span>
-                                <span class="provider-stat-label">per hour</span>
-                            </div>
-                            <div class="provider-stat">
-                                <i class="fas fa-map-marker-alt text-rose-400"></i>
-                                <span class="provider-stat-value">${p.location}</span>
-                                <span class="provider-stat-label">Location</span>
+                            <div class="provider-stat-item">
+                                <i class="fas fa-map-marker-alt text-serva-500"></i>
+                                <span class="text-sm text-slate-500">${p.location}</span>
                             </div>
                         </div>
 
-                        <!-- CTA -->
-                        <button onclick="openBookingModal(${p.id})" class="provider-cta">
-                            Book Now
-                        </button>
+                        <!-- Price + CTA -->
+                        <div class="flex items-center justify-between mt-5">
+                            <div>
+                                <span class="text-xl font-bold text-slate-900">$${p.price}</span>
+                                <span class="text-xs text-slate-400">/hr</span>
+                            </div>
+                            <button onclick="openBookingModal(${p.id})" class="provider-book-btn">
+                                Book Now <i class="fas fa-plus ml-1 text-xs"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `).join('')}
