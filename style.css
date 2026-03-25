@@ -158,6 +158,20 @@ h6 {
     text-align: center;
 }
 
+@media (max-width: 639px) {
+    .hero-light h1 {
+        font-size: 2.75rem !important;
+        line-height: 1.1;
+    }
+    .polaroid-card {
+        width: 150px;
+        transform: scale(0.9) rotate(var(--rotation, 0deg));
+    }
+    .polaroid-img {
+        height: 120px;
+    }
+}
+
 @media (min-width: 640px) {
     .polaroid-card {
         width: 200px;
@@ -238,6 +252,13 @@ h6 {
     animation: giftBounce 2s ease-in-out infinite;
 }
 
+@media (max-width: 640px) {
+    .gift-box {
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
+
 .shimmer-bg {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     background-size: 200% 100%;
@@ -246,6 +267,10 @@ h6 {
 
 .page-transition {
     animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-section {
+    scroll-margin-top: 100px;
 }
 
 .hamburger-line {
