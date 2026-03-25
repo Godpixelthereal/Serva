@@ -1,18 +1,18 @@
 // Data
 const categories = [
-    { id: 'home', name: 'Home Services', type: 'image', visual: 'cat-home.png', gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', description: 'Cleaning, repairs, plumbing' },
-    { id: 'professional', name: 'Prof. Services', type: 'image', visual: 'cat-professional.png', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', description: 'Legal, accounting, marketing' },
-    { id: 'personal', name: 'Personal Care', type: 'image', visual: 'cat-personal.png', gradient: 'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)', description: 'Beauty, fitness, wellness' },
-    { id: 'events', name: 'Event Services', type: 'emoji', visual: '🎈', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', description: 'Catering, photography, decor' },
-    { id: 'tech', name: 'Tech Support', type: 'emoji', visual: '💻', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', description: 'IT support, coding, repair' },
-    { id: 'transport', name: 'Transport', type: 'emoji', visual: '📦', gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', description: 'Moving, delivery, logistics' }
+    { id: 'repairs', name: 'Repairs', type: 'emoji', visual: '🔧', gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', description: 'Plumbing, Electrical works, Welding, Vehicle repair' },
+    { id: 'maintenance', name: 'Maintenance', type: 'emoji', visual: '🧹', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', description: 'Cleaning, Decluttering, Fumigation' },
+    { id: 'lifestyle', name: 'Lifestyle', type: 'emoji', visual: '🛍️', gradient: 'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)', description: 'Tailoring, Shopping/Errands, Home car-washing' },
+    { id: 'building', name: 'Building', type: 'emoji', visual: '🏗️', gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', description: 'Carpentry, Painting' },
+    { id: 'personal', name: 'Personal Care', type: 'emoji', visual: '💇', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', description: 'Hairstyling/Barbing, Makeup artistry, Laundry' },
+    { id: 'others', name: 'Others', type: 'emoji', visual: '⚡', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', description: 'Personalized, tailored, or emergency services' }
 ];
 
 const allServices = [
-    { id: 1, catId: 'home', name: 'Deep House Cleaning', price: 80, location: 'Downtown', description: 'Professional deep cleaning for apartments and houses.', icon: 'fa-broom' },
-    { id: 2, catId: 'home', name: 'Expert Plumbing', price: 60, location: 'Suburbs', description: 'Leak repairs, pipe installations, and more.', icon: 'fa-faucet' },
-    { id: 3, catId: 'tech', name: 'PC/Mac Repair', price: 50, location: 'Midtown', description: 'Hardware and software troubleshooting.', icon: 'fa-laptop' },
-    { id: 4, catId: 'events', name: 'Event Photography', price: 150, location: 'City Center', description: 'Professional shots for weddings and parties.', icon: 'fa-camera' }
+    { id: 1, catId: 'maintenance', name: 'Deep House Cleaning', price: 80, location: 'Downtown', description: 'Professional deep cleaning for apartments and houses.', icon: 'fa-broom' },
+    { id: 2, catId: 'repairs', name: 'Expert Plumbing', price: 60, location: 'Suburbs', description: 'Leak repairs, pipe installations, and more.', icon: 'fa-faucet' },
+    { id: 3, catId: 'repairs', name: 'Electrical Works', price: 50, location: 'Midtown', description: 'Wiring, installations, and electrical troubleshooting.', icon: 'fa-bolt' },
+    { id: 4, catId: 'personal', name: 'Hairstyling & Barbing', price: 30, location: 'City Center', description: 'Professional hairstyling and barbing services.', icon: 'fa-cut' }
 ];
 
 const providers = [
@@ -31,6 +31,7 @@ function showAbout() { hideAllPages(); document.getElementById('aboutPage').clas
 function showContact() { hideAllPages(); document.getElementById('contactPage').classList.remove('hidden'); }
 function showFeedback() { hideAllPages(); document.getElementById('feedbackPage').classList.remove('hidden'); }
 function showTerms() { hideAllPages(); document.getElementById('termsPage').classList.remove('hidden'); }
+function showGuarantee() { hideAllPages(); document.getElementById('guaranteePage').classList.remove('hidden'); }
 
 function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
 
@@ -260,15 +261,21 @@ function showToast(msg) {
 function animateCounters() {
     const clientsCounter = document.getElementById('clientsCounter');
     const servicesCounter = document.getElementById('servicesCounter');
+    const providersCounter = document.getElementById('providersCounter');
+    const trustCount = document.getElementById('trustCount');
     if (!clientsCounter) return;
-    let c = 0, s = 0;
+    let c = 0, s = 0, p = 0, t = 0;
     const interval = setInterval(() => {
-        c += 200; s += 150;
+        c += 200; s += 150; p += 10; t += 20;
         if (c >= 12543) c = 12543;
         if (s >= 8932) s = 8932;
+        if (p >= 1250) p = 1250;
+        if (t >= 2000) t = 2000;
         clientsCounter.textContent = c.toLocaleString();
         servicesCounter.textContent = s.toLocaleString();
-        if (c === 12543 && s === 8932) clearInterval(interval);
+        if (providersCounter) providersCounter.textContent = p.toLocaleString();
+        if (trustCount) trustCount.textContent = t.toLocaleString() + '+';
+        if (c === 12543 && s === 8932 && p === 1250 && t === 2000) clearInterval(interval);
     }, 30);
 }
 
