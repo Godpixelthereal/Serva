@@ -506,41 +506,101 @@ h6 {
     transform: translateY(-2px);
 }
 
-/* Premium Category Cards */
-.category-card-v2 {
-    background: white;
-    border: 1px solid #e8e8e8;
-    border-radius: 24px;
-    padding: 32px 28px;
+/* Horizontal Category Cards v3 */
+.category-card-v3 {
+    position: relative;
+    border-radius: 20px;
+    padding: 24px;
+    overflow: hidden;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
-    flex-direction: column;
-}
-
-.category-card-v2:hover {
-    border-color: transparent;
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-}
-
-.cat-icon-v2 {
-    width: 56px;
-    height: 56px;
-    border-radius: 18px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    color: white;
-    margin-bottom: 20px;
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    min-height: 140px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
-.category-card-v2:hover .cat-icon-v2 {
-    transform: scale(1.12) rotate(5deg);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+.category-card-v3:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.cat-v3-content {
+    position: relative;
+    z-index: 10;
+    max-width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.cat-v3-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 6px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+}
+
+.cat-v3-desc {
+    font-size: 0.8rem;
+    color: #334155;
+    margin-bottom: 14px;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+.cat-v3-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    transition: all 0.3s ease;
+}
+
+.category-card-v3:hover .cat-v3-btn {
+    background: white;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cat-v3-visual {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 130%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+.category-card-v3:hover .cat-v3-visual {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.cat-v3-emoji {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.category-card-v3:hover .cat-v3-emoji {
+    transform: translateY(-50%) scale(1.1) rotate(-5deg);
 }
 
 /* Provider Cards V2 */

@@ -1,11 +1,11 @@
 // Data
 const categories = [
-    { id: 'home', name: 'Home Services', icon: 'fa-home', description: 'Cleaning, repairs, plumbing', gradient: 'linear-gradient(135deg, #667eea, #764ba2)' },
-    { id: 'professional', name: 'Professional Services', icon: 'fa-briefcase', description: 'Legal, accounting, marketing', gradient: 'linear-gradient(135deg, #f093fb, #f5576c)' },
-    { id: 'personal', name: 'Personal Care', icon: 'fa-spa', description: 'Beauty, fitness, wellness', gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)' },
-    { id: 'events', name: 'Event Services', icon: 'fa-calendar-star', description: 'Catering, photography, decor', gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)' },
-    { id: 'tech', name: 'Tech Support', icon: 'fa-laptop-code', description: 'IT support, coding, repair', gradient: 'linear-gradient(135deg, #fa709a, #fee140)' },
-    { id: 'transport', name: 'Transport', icon: 'fa-car', description: 'Moving, delivery, logistics', gradient: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' }
+    { id: 'home', name: 'Home Services', type: 'image', visual: 'cat-home.png', gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', description: 'Cleaning, repairs, plumbing' },
+    { id: 'professional', name: 'Prof. Services', type: 'image', visual: 'cat-professional.png', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', description: 'Legal, accounting, marketing' },
+    { id: 'personal', name: 'Personal Care', type: 'image', visual: 'cat-personal.png', gradient: 'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)', description: 'Beauty, fitness, wellness' },
+    { id: 'events', name: 'Event Services', type: 'emoji', visual: '🎈', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', description: 'Catering, photography, decor' },
+    { id: 'tech', name: 'Tech Support', type: 'emoji', visual: '💻', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', description: 'IT support, coding, repair' },
+    { id: 'transport', name: 'Transport', type: 'emoji', visual: '📦', gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', description: 'Moving, delivery, logistics' }
 ];
 
 const allServices = [
@@ -41,16 +41,18 @@ function renderCategories() {
     const serviceCounts = {};
     categories.forEach(cat => { serviceCounts[cat.id] = allServices.filter(s => s.catId === cat.id).length; });
     grid.innerHTML = categories.map(cat => `
-        <div class="category-card-v2 group" onclick="showCategoryServices('${cat.id}')">
-            <div class="cat-icon-v2" style="background: ${cat.gradient};">
-                <i class="fas ${cat.icon}"></i>
+        <div class="category-card-v3" style="background: ${cat.gradient};" onclick="showCategoryServices('${cat.id}')">
+            <div class="cat-v3-content">
+                <h3 class="cat-v3-title">${cat.name}</h3>
+                <p class="cat-v3-desc">${cat.description}</p>
+                <div class="cat-v3-btn">
+                    ${serviceCounts[cat.id]} service${serviceCounts[cat.id] !== 1 ? 's' : ''} <i class="fas fa-chevron-right text-[10px]"></i>
+                </div>
             </div>
-            <h3 class="text-xl font-bold mb-2 font-display text-slate-900">${cat.name}</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-5">${cat.description}</p>
-            <div class="flex items-center justify-between mt-auto">
-                <span class="text-xs font-bold text-serva-500 bg-serva-50 px-3 py-1 rounded-full">${serviceCounts[cat.id]} service${serviceCounts[cat.id] !== 1 ? 's' : ''}</span>
-                <span class="text-slate-300 group-hover:text-serva-500 group-hover:translate-x-1 transition-all"><i class="fas fa-arrow-right"></i></span>
-            </div>
+            ${cat.type === 'image' 
+                ? `<img src="${cat.visual}" alt="${cat.name}" class="cat-v3-visual">` 
+                : `<div class="cat-v3-emoji">${cat.visual}</div>`
+            }
         </div>
     `).join('');
 }
