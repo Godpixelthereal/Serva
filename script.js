@@ -1,13 +1,13 @@
 // Data
 const categories = [
-    { id: 'repairs', name: 'Repairs', type: 'emoji', visual: '🔧', gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
-    { id: 'maintenance', name: 'Maintenance', type: 'emoji', visual: '🧹', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
-    { id: 'electrical', name: 'Electrical Services', type: 'emoji', visual: '⚡', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
-    { id: 'lifestyle', name: 'Lifestyle', type: 'emoji', visual: '🛍️', gradient: 'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)', description: 'Convenience services that support daily living and make everyday tasks easier and more manageable.' },
-    { id: 'building', name: 'Building', type: 'emoji', visual: '🏗️', gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', description: 'Services involved in the construction, renovation, and improvement of physical spaces and structures.' },
-    { id: 'personal', name: 'Personal Care', type: 'emoji', visual: '💇', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', description: 'Services centered on individual grooming, hygiene, and overall personal well-being.' },
-    { id: 'logistics', name: 'Logistics & Moving', type: 'emoji', visual: '🚛', gradient: 'linear-gradient(135deg, #e2ebf0 0%, #cfd9df 100%)', description: 'Services that handle the movement, delivery, and transportation of people, goods, or items from one place to another.' },
-    { id: 'others', name: 'Others', type: 'emoji', visual: '✨', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', description: 'Custom or specialized services designed to meet unique, urgent, or less common needs.' }
+    { id: 'repairs', name: 'Repairs', type: 'emoji', visual: '🔧', gradient: 'linear-gradient(135deg, #254B96 0%, #1a3270 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
+    { id: 'maintenance', name: 'Maintenance', type: 'emoji', visual: '🧹', gradient: 'linear-gradient(135deg, #27B376 0%, #1e8e5d 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
+    { id: 'electrical', name: 'Electrical Services', type: 'emoji', visual: '⚡', gradient: 'linear-gradient(135deg, #FAA73F 0%, #e8942e 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
+    { id: 'lifestyle', name: 'Lifestyle', type: 'emoji', visual: '🛍️', gradient: 'linear-gradient(135deg, #27B376 0%, #254B96 100%)', description: 'Convenience services that support daily living and make everyday tasks easier and more manageable.' },
+    { id: 'building', name: 'Building', type: 'emoji', visual: '🏗️', gradient: 'linear-gradient(135deg, #254B96 0%, #173366 100%)', description: 'Services involved in the construction, renovation, and improvement of physical spaces and structures.' },
+    { id: 'personal', name: 'Personal Care', type: 'emoji', visual: '💇', gradient: 'linear-gradient(135deg, #FAA73F 0%, #f7941d 100%)', description: 'Services centered on individual grooming, hygiene, and overall personal well-being.' },
+    { id: 'logistics', name: 'Logistics & Moving', type: 'emoji', visual: '🚛', gradient: 'linear-gradient(135deg, #27B376 0%, #43af77 100%)', description: 'Services that handle the movement, delivery, and transportation of people, goods, or items from one place to another.' },
+    { id: 'others', name: 'Others', type: 'emoji', visual: '✨', gradient: 'linear-gradient(135deg, #254B96 0%, #213f80 100%)', description: 'Custom or specialized services designed to meet unique, urgent, or less common needs.' }
 ];
 
 const allServices = [
