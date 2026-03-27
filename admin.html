@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serva Admin | Provider Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="data.js"></script>
+    <style>
+        :root {
+            --serva-green: #27B376;
+            --serva-blue: #254B96;
+            --serva-amber: #DE902D;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        .admin-sidebar { background: #1e293b; color: white; width: 280px; }
+        .nav-item { transition: all 0.2s; border-radius: 12px; margin: 4px 12px; }
+        .nav-item.active { background: var(--serva-green); color: white; }
+        .btn-serva { background: var(--serva-green); color: white; transition: all 0.3s; }
+        .btn-serva:hover { background: #1f8d5d; transform: translateY(-2px); }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-md">
+        <div class="glass-card p-10 rounded-[40px] shadow-2xl w-full max-w-md text-center">
+            <img src="serva-logo.png" alt="Serva Admin" class="h-12 mx-auto mb-8">
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Admin Portal</h2>
+            <p class="text-slate-500 mb-8">Enter your secure passcode to manage providers.</p>
+            <input type="password" id="adminPasscode" placeholder="••••" class="w-full px-6 py-4 rounded-2xl bg-slate-100 border-none focus:ring-2 focus:ring-emerald-500 text-center text-3xl tracking-[1em] font-bold outline-none mb-6">
+            <button onclick="checkAdminAccess()" class="w-full btn-serva py-4 rounded-2xl font-bold shadow-lg shadow-emerald-500/20">Access Dashboard</button>
+            <p id="loginError" class="text-red-500 mt-4 hidden text-sm font-medium">Incorrect passcode. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar hidden flex flex-col pt-8 pb-4 shrink-0" id="mainSidebar">
+        <div class="px-8 mb-10">
+            <img src="serva-logo-footer.png" alt="Serva" class="h-8 brightness-0 invert">
+        </div>
+        
+        <nav class="flex-1">
+            <a href="#" class="nav-item active flex items-center gap-4 py-4 px-6 text-sm font-semibold">
+                <i class="fas fa-users-gear text-lg"></i> Service Providers
+            </a>
+            <a href="#" class="nav-item flex items-center gap-4 py-4 px-6 text-slate-400 hover:text-white hover:bg-white/5 text-sm font-semibold">
+                <i class="fas fa-chart-line text-lg"></i> Analytics
+            </a>
+            <a href="#" class="nav-item flex items-center gap-4 py-4 px-6 text-slate-400 hover:text-white hover:bg-white/5 text-sm font-semibold">
+                <i class="fas fa-cog text-lg"></i> Site Settings
+            </a>
+        </nav>
+
+        <div class="px-6 py-4 border-t border-white/10 mx-3">
+            <button onclick="logoutAdmin()" class="flex items-center gap-3 text-slate-400 hover:text-red-400 transition text-sm font-bold">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden hidden" id="mainDashboard">
+        <!-- Header -->
+        <header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shrink-0">
+            <div>
+                <h1 class="text-xl font-bold text-slate-900">Provider Registry</h1>
+                <p class="text-xs text-slate-400 font-medium">Manage and approve marketplace partners</p>
+            </div>
+            <button onclick="openAddModal()" class="btn-serva px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2">
+                <i class="fas fa-plus"></i> Add New Provider
+            </button>
+        </header>
+
+        <!-- Content Area -->
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="grid grid-cols-1 gap-6 mb-12">
+                <!-- Stats Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Providers</p>
+                        <h3 class="text-3xl font-extrabold text-slate-900" id="statTotal">0</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Active Services</p>
+                        <h3 class="text-3xl font-extrabold text-serva-blue" id="statActiveServices">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provider Table -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Provider</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Service</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Location</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Pricing</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminProviderList">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Provider Modal -->
+    <div id="addModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white p-8 rounded-[32px] shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-slate-900" id="modalTitle">Add Service Provider</h2>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="addProviderForm" onsubmit="saveProvider(event)" class="space-y-6">
+                <input type="hidden" id="editId" name="id">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Full Name</label>
+                        <input type="text" name="name" required class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Service Category</label>
+                        <select name="serviceId" required class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500" id="modalServiceSelect">
+                            <!-- Dynamic Categories -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Location</label>
+                        <input type="text" name="location" required placeholder="e.g. Ifite" class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Base Price (₦)</label>
+                        <input type="number" name="price" required class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">About / Experience</label>
+                    <textarea name="about" required rows="3" class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Photo Reference</label>
+                    <input type="text" name="photo" placeholder="provider-new.png" class="w-full px-5 py-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" id="submitBtn" class="w-full btn-serva py-4 rounded-xl font-bold">Approve & Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
