@@ -39,15 +39,57 @@ const providers = [
 
 let currentFeedbackTab = 'suggestion';
 
-// Navigation
-function hideAllPages() { document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden')); window.scrollTo(0, 0); }
-function showHome() { hideAllPages(); document.getElementById('homePage').classList.remove('hidden'); }
-function showCategories() { hideAllPages(); document.getElementById('categoriesPage').classList.remove('hidden'); renderCategories(); }
-function showAbout() { hideAllPages(); document.getElementById('aboutPage').classList.remove('hidden'); }
-function showContact() { hideAllPages(); document.getElementById('contactPage').classList.remove('hidden'); }
-function showFeedback() { hideAllPages(); document.getElementById('feedbackPage').classList.remove('hidden'); }
-function showTerms() { hideAllPages(); document.getElementById('termsPage').classList.remove('hidden'); }
-function showGuarantee() { hideAllPages(); document.getElementById('guaranteePage').classList.remove('hidden'); }
+// Navigation State & Routing
+function hideAllPages() { 
+    document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden')); 
+    window.scrollTo(0, 0); 
+    // Close mobile menu on every navigation
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu) mobileMenu.classList.add('hidden');
+}
+
+// Public Navigation API (Updates Hash)
+function showHome() { window.location.hash = 'home'; }
+function showCategories() { window.location.hash = 'categories'; }
+function showAbout() { window.location.hash = 'about'; }
+function showContact() { window.location.hash = 'contact'; }
+function showFeedback() { window.location.hash = 'feedback'; }
+function showTerms() { window.location.hash = 'terms'; }
+function showGuarantee() { window.location.hash = 'guarantee'; }
+
+function handleRouting() {
+    const hash = window.location.hash.substring(1) || 'home';
+    const [path, param] = hash.split('/');
+
+    hideAllPages();
+
+    // Route Logic
+    if (path === 'home') {
+        document.getElementById('homePage').classList.remove('hidden');
+    } else if (path === 'categories') {
+        document.getElementById('categoriesPage').classList.remove('hidden');
+        renderCategories();
+    } else if (path === 'category' && param) {
+        renderCategoryServicesInternal(param);
+    } else if (path === 'services' && param) {
+        renderProvidersListInternal(parseInt(param));
+    } else if (path === 'provider' && param) {
+        renderProfileInternal(parseInt(param));
+    } else if (path === 'about') {
+        document.getElementById('aboutPage').classList.remove('hidden');
+    } else if (path === 'contact') {
+        document.getElementById('contactPage').classList.remove('hidden');
+    } else if (path === 'feedback') {
+        document.getElementById('feedbackPage').classList.remove('hidden');
+    } else if (path === 'terms') {
+        document.getElementById('termsPage').classList.remove('hidden');
+    } else if (path === 'guarantee') {
+        document.getElementById('guaranteePage').classList.remove('hidden');
+    } else {
+        // Fallback to home
+        window.location.hash = 'home';
+    }
+}
 
 function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
 
@@ -94,10 +136,11 @@ function renderFeatured() {
     `).join('');
 }
 
-function showCategoryServices(catId) {
+function showCategoryServices(catId) { window.location.hash = `category/${catId}`; }
+
+function renderCategoryServicesInternal(catId) {
     const cat = categories.find(c => c.id === catId);
     if (!cat) return;
-    hideAllPages();
     document.getElementById('servicesListPage').classList.remove('hidden');
     document.getElementById('categoryTitle').textContent = cat.name;
 
@@ -118,10 +161,11 @@ function showCategoryServices(catId) {
 }
 
 let currentServiceId = null;
-function showProviders(serviceId) {
+function showProviders(serviceId) { window.location.hash = `services/${serviceId}`; }
+
+function renderProvidersListInternal(serviceId) {
     currentServiceId = serviceId;
     const svc = allServices.find(s => s.id === serviceId);
-    hideAllPages();
     document.getElementById('providerPage').classList.remove('hidden');
     document.getElementById('providerNameHeader').textContent = svc ? svc.name : 'Providers';
 
@@ -195,10 +239,11 @@ function showProviders(serviceId) {
     `;
 }
 
-function showProfile(providerId) {
+function showProfile(providerId) { window.location.hash = `provider/${providerId}`; }
+
+function renderProfileInternal(providerId) {
     const provider = providers.find(p => p.id === providerId);
     if (!provider) return;
-    hideAllPages();
     document.getElementById('providerProfilePage').classList.remove('hidden');
     const container = document.getElementById('profileDetails');
     
@@ -212,6 +257,9 @@ function showProfile(providerId) {
             <div class="pt-20 px-8 pb-8">
                 <div class="flex justify-between items-start mb-6">
                     <div>
+                        <button onclick="window.history.back()"
+                        class="text-slate-500 hover:text-slate-900 mb-4 flex items-center gap-2 text-sm sm:text-base transition"><i
+                            class="fas fa-arrow-left"></i> Back</button>
                         <h2 class="text-3xl font-bold text-slate-900 font-display">${provider.name}</h2>
                         <p class="text-slate-500 flex items-center gap-2 mt-1">
                             <i class="fas fa-map-marker-alt text-serva-500"></i> ${provider.location}
@@ -376,4 +424,8 @@ function animateCounters() {
 document.addEventListener('DOMContentLoaded', () => {
     renderFeatured();
     animateCounters();
+    
+    // Initialize Routing
+    window.addEventListener('hashchange', handleRouting);
+    handleRouting(); // First load
 });
