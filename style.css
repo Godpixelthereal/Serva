@@ -599,6 +599,7 @@ h6 {
     margin-bottom: 6px;
     font-family: 'Poppins', sans-serif;
     line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .cat-v3-desc {
@@ -606,7 +607,8 @@ h6 {
     color: #334155;
     margin-bottom: 14px;
     line-height: 1.4;
-    opacity: 0.9;
+    opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .cat-v3-btn {
@@ -614,36 +616,39 @@ h6 {
     align-items: center;
     gap: 4px;
     padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 700;
-    color: #0f172a;
+    color: white;
     transition: all 0.3s ease;
 }
 
 .category-card-v3:hover .cat-v3-btn {
-    background: white;
+    background: rgba(255, 255, 255, 1);
+    color: #0f172a;
     transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cat-v3-visual {
     position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 130%;
-    object-fit: contain;
-    mix-blend-mode: multiply;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: overlay;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
-    opacity: 0.95;
+    opacity: 0.45;
+    z-index: 1;
 }
 
 .category-card-v3:hover .cat-v3-visual {
-    transform: translateY(-50%) scale(1.05);
+    transform: scale(1.1);
 }
 
 .cat-v3-emoji {
