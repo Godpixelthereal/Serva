@@ -1,8 +1,8 @@
 // Data
 const categories = [
-    { id: 'repairs', name: 'Repairs', type: 'image', visual: 'repairs.png', gradient: 'linear-gradient(135deg, #254B96 0%, #1a3270 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
-    { id: 'maintenance', name: 'Maintenance', type: 'image', visual: 'maintenance.png', gradient: 'linear-gradient(135deg, #006F3C 0%, #004d2a 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
-    { id: 'electrical', name: 'Electrical Services', type: 'image', visual: 'electrical.png', gradient: 'linear-gradient(135deg, #DE902D 0%, #B45309 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
+    { id: 'repairs', name: 'Repairs', type: 'image', visual: 'repairs_bg_localized_1774610544054.png', gradient: 'linear-gradient(135deg, #254B96 0%, #1a3270 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
+    { id: 'maintenance', name: 'Maintenance', type: 'image', visual: 'maintenance_bg_localized_1774610594834.png', gradient: 'linear-gradient(135deg, #006F3C 0%, #004d2a 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
+    { id: 'electrical', name: 'Electrical Services', type: 'image', visual: 'electrical_bg_localized_1774610700416.png', gradient: 'linear-gradient(135deg, #DE902D 0%, #B45309 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
     { id: 'lifestyle', name: 'Lifestyle', type: 'image', visual: 'lifestyle.png', gradient: 'linear-gradient(135deg, #27B376 0%, #006F3C 100%)', description: 'Convenience services that support daily living and make everyday tasks easier and more manageable.' },
     { id: 'building', name: 'Building', type: 'emoji', visual: '🏗️', gradient: 'linear-gradient(135deg, #254B96 0%, #173366 100%)', description: 'Services involved in the construction, renovation, and improvement of physical spaces and structures.' },
     { id: 'personal', name: 'Personal Care', type: 'image', visual: 'cat-personal.png', gradient: 'linear-gradient(135deg, #DE902D 0%, #B45309 100%)', description: 'Services centered on individual grooming, hygiene, and overall personal well-being.' },
@@ -32,9 +32,9 @@ const allServices = [
 ];
 
 const providers = [
-    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Ifite', price: 5000, rating: 4.8, photo: 'provider-sarah.png', about: '5 years of experience in eco-friendly cleaning.', jobs: 527 },
-    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Arroma', price: 4500, rating: 4.5, photo: 'provider-ecoshine.png', about: 'Fast and reliable cleaning services.', jobs: 413 },
-    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Regina', price: 8000, rating: 4.9, photo: 'provider-john.png', about: 'Certified plumber with 10+ years experience.', jobs: 612 }
+    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Ifite', price: 5000, rating: 4.8, photo: 'provider_sarah_new_1774610165024.png', about: '5 years of experience in eco-friendly cleaning.', jobs: 527 },
+    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Arroma', price: 4500, rating: 4.5, photo: 'provider_ecoshine_new_1774610190997.png', about: 'Fast and reliable cleaning services.', jobs: 413 },
+    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Regina', price: 8000, rating: 4.9, photo: 'provider_john_new_1774610491464.png', about: 'Certified plumber with 10+ years experience.', jobs: 612 }
 ];
 
 let currentFeedbackTab = 'suggestion';
