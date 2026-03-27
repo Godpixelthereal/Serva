@@ -1,13 +1,13 @@
 // Data
 const categories = [
-    { id: 'repairs', name: 'Repairs', type: 'emoji', visual: '🔧', gradient: 'linear-gradient(135deg, #254B96 0%, #1a3270 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
-    { id: 'maintenance', name: 'Maintenance', type: 'emoji', visual: '🧹', gradient: 'linear-gradient(135deg, #27B376 0%, #1e8e5d 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
-    { id: 'electrical', name: 'Electrical Services', type: 'emoji', visual: '⚡', gradient: 'linear-gradient(135deg, #FAA73F 0%, #e8942e 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
-    { id: 'lifestyle', name: 'Lifestyle', type: 'emoji', visual: '🛍️', gradient: 'linear-gradient(135deg, #27B376 0%, #254B96 100%)', description: 'Convenience services that support daily living and make everyday tasks easier and more manageable.' },
+    { id: 'repairs', name: 'Repairs', type: 'image', visual: 'repairs.png', gradient: 'linear-gradient(135deg, #254B96 0%, #1a3270 100%)', description: 'Services focused on fixing damaged or faulty items to restore them to proper working condition.' },
+    { id: 'maintenance', name: 'Maintenance', type: 'image', visual: 'maintenance.png', gradient: 'linear-gradient(135deg, #006F3C 0%, #004d2a 100%)', description: 'Routine services to keep your spaces, equipment, and systems in good condition and prevent breakdowns.' },
+    { id: 'electrical', name: 'Electrical Services', type: 'image', visual: 'electrical.png', gradient: 'linear-gradient(135deg, #FAA73F 0%, #e8942e 100%)', description: 'Solutions related to the installation, repair, and management of electrical systems and power-related needs.' },
+    { id: 'lifestyle', name: 'Lifestyle', type: 'image', visual: 'lifestyle.png', gradient: 'linear-gradient(135deg, #27B376 0%, #254B96 100%)', description: 'Convenience services that support daily living and make everyday tasks easier and more manageable.' },
     { id: 'building', name: 'Building', type: 'emoji', visual: '🏗️', gradient: 'linear-gradient(135deg, #254B96 0%, #173366 100%)', description: 'Services involved in the construction, renovation, and improvement of physical spaces and structures.' },
-    { id: 'personal', name: 'Personal Care', type: 'emoji', visual: '💇', gradient: 'linear-gradient(135deg, #FAA73F 0%, #f7941d 100%)', description: 'Services centered on individual grooming, hygiene, and overall personal well-being.' },
-    { id: 'logistics', name: 'Logistics & Moving', type: 'emoji', visual: '🚛', gradient: 'linear-gradient(135deg, #27B376 0%, #43af77 100%)', description: 'Services that handle the movement, delivery, and transportation of people, goods, or items from one place to another.' },
-    { id: 'others', name: 'Others', type: 'emoji', visual: '✨', gradient: 'linear-gradient(135deg, #254B96 0%, #213f80 100%)', description: 'Custom or specialized services designed to meet unique, urgent, or less common needs.' }
+    { id: 'personal', name: 'Personal Care', type: 'image', visual: 'cat-personal.png', gradient: 'linear-gradient(135deg, #FAA73F 0%, #f7941d 100%)', description: 'Services centered on individual grooming, hygiene, and overall personal well-being.' },
+    { id: 'logistics', name: 'Logistics & Moving', type: 'image', visual: 'logistics.png', gradient: 'linear-gradient(135deg, #27B376 0%, #006F3C 100%)', description: 'Services that handle the movement, delivery, and transportation of people, goods, or items from one place to another.' },
+    { id: 'others', name: 'Others', type: 'emoji', visual: '✨', gradient: 'linear-gradient(135deg, #BF212F 0%, #a01b27 100%)', description: 'Custom or specialized services designed to meet unique, urgent, or less common needs.' }
 ];
 
 const allServices = [
@@ -60,9 +60,9 @@ function renderCategories() {
     grid.innerHTML = categories.map(cat => `
         <div class="category-card-v3" style="background: ${cat.gradient};" onclick="showCategoryServices('${cat.id}')">
             <div class="cat-v3-content">
-                <h3 class="cat-v3-title">${cat.name}</h3>
-                <p class="cat-v3-desc">${cat.description}</p>
-                <div class="cat-v3-btn">
+                <h3 class="cat-v3-title text-white">${cat.name}</h3>
+                <p class="cat-v3-desc text-white/80">${cat.description}</p>
+                <div class="cat-v3-btn bg-white/20 text-white">
                     ${serviceCounts[cat.id]} service${serviceCounts[cat.id] !== 1 ? 's' : ''} <i class="fas fa-chevron-right text-[10px]"></i>
                 </div>
             </div>
