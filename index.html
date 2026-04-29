@@ -657,7 +657,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <p class="font-bold text-slate-900 text-lg mb-1">Email</p>
-                            <p class="text-slate-500">Servaforyou@gmail.com</p>
+                            <a href="mailto:Servaforyou@gmail.com" class="text-slate-500 hover:text-serva-500 transition">Servaforyou@gmail.com</a>
                         </div>
                         <div class="contact-card">
                             <div
@@ -665,7 +665,7 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <p class="font-bold text-slate-900 text-lg mb-1">Phone</p>
-                            <p class="text-slate-500">+234 811 217 4969</p>
+                            <a href="https://wa.me/+2348112174969" target="_blank" class="text-slate-500 hover:text-serva-500 transition">+234 811 217 4969</a>
                         </div>
                     </div>
                 </div>
@@ -900,6 +900,12 @@
         </div>
     </footer>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/+2348112174969" target="_blank" 
+        class="fixed bottom-24 sm:bottom-32 right-6 sm:right-8 z-40 whatsapp-btn w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110 active:scale-95">
+        <i class="fab fa-whatsapp text-white text-3xl"></i>
+    </a>
+
     <!-- Floating Gift Box -->
     <div class="fixed bottom-6 sm:bottom-8 right-6 sm:right-8 z-40 gift-box cursor-pointer" onclick="openGiftModal()">
         <div
@@ -971,6 +977,14 @@
         </div>
     </div>
 
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-32 left-1/2 -translate-x-1/2 z-[60] hidden pointer-events-none">
+        <div class="bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+            <i class="fas fa-info-circle text-serva-500"></i>
+            <span id="toastMessage" class="text-sm font-medium"></span>
+        </div>
+    </div>
 
     <script src="data.js"></script>
     <script src="script.js"></script>

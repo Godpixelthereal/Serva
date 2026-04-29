@@ -312,7 +312,8 @@ function handleBooking(e) {
     showToast(`Redirecting to WhatsApp to book ${provider.name}...`);
     closeModals();
     setTimeout(() => {
-        window.location.href = `https://wa.me/2348112174969?text=${message}`;
+        const url = `https://wa.me/+2348112174969?text=${message}`;
+        window.open(url, '_blank');
     }, 1000);
 }
 
@@ -328,7 +329,8 @@ function handleOffer(e) {
     closeModals();
     form.reset();
     setTimeout(() => {
-        window.location.href = `https://wa.me/2348112174969?text=${message}`;
+        const url = `https://wa.me/+2348112174969?text=${message}`;
+        window.open(url, '_blank');
     }, 1000);
 }
 
