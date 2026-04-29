@@ -63,6 +63,8 @@
                             class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Services</button>
                         <button onclick="showAbout()"
                             class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">About</button>
+                        <button onclick="showBlog()"
+                            class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Blog</button>
                         <button onclick="showContact()"
                             class="nav-link text-slate-600 hover:text-serva-500 font-medium transition">Contact</button>
                         <button onclick="openOfferModal()"
@@ -93,6 +95,9 @@
                 <button onclick="showAbout(); toggleMobileMenu()"
                     class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
                         class="fas fa-info-circle w-8 text-serva-500"></i>About Us</button>
+                <button onclick="showBlog(); toggleMobileMenu()"
+                    class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
+                        class="fas fa-newspaper w-8 text-serva-500"></i>Blog</button>
                 <button onclick="showFeedback(); toggleMobileMenu()"
                     class="flex items-center w-full px-4 py-3 rounded-xl hover:bg-serva-50 font-medium"><i
                         class="fas fa-comment-dots w-8 text-serva-500"></i>Feedback</button>
@@ -494,10 +499,86 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="py-24 bg-slate-50/50">
+                <div class="max-w-4xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm bg-emerald-50 px-4 py-2 rounded-full inline-block mb-4">Questions & Answers</span>
+                        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-display">Frequently Asked Questions</h2>
+                        <p class="text-slate-600 text-lg">Everything you need to know about using Serva.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- FAQ Item 1 -->
+                        <div class="faq-item group bg-white rounded-2xl border border-slate-100 overflow-hidden transition-all duration-300">
+                            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">How do I book a service?</span>
+                                <span class="faq-icon w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </span>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                                    Booking is simple! Browse through our categories, select a service provider that fits your needs and location, and click the "Book Now" or "Make an Offer" button. This will connect you directly with the provider via WhatsApp to finalize details.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="faq-item group bg-white rounded-2xl border border-slate-100 overflow-hidden transition-all duration-300">
+                            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Is it free to use Serva?</span>
+                                <span class="faq-icon w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </span>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                                    Yes, browsing and connecting with service providers on Serva is completely free for customers. You only pay the service provider directly for the work they perform.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="faq-item group bg-white rounded-2xl border border-slate-100 overflow-hidden transition-all duration-300">
+                            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">How can I trust the service providers?</span>
+                                <span class="faq-icon w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </span>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                                    We manually verify and vet every service provider that joins our platform. We look for proof of expertise and past work quality to ensure you're connecting with reliable professionals.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div class="faq-item group bg-white rounded-2xl border border-slate-100 overflow-hidden transition-all duration-300">
+                            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                                <span class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Can I offer my own price?</span>
+                                <span class="faq-icon w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </span>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                                    Absolutely! Many of our providers are open to negotiation. Use the "Make an Offer" button to send your proposed budget directly to the provider.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <p class="text-slate-600 mb-6 italic">Still have more questions?</p>
+                        <a href="#contact" class="inline-flex items-center gap-2 text-emerald-600 font-bold hover:gap-3 transition-all">Contact our support team <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </section>
-        </div>
 
         <!-- Categories Page -->
         <div id="categoriesPage" class="page-section hidden page-transition">
@@ -551,6 +632,91 @@
                 </div>
             </div>
             <div class="max-w-4xl mx-auto px-4 py-8 sm:py-12" id="profileDetails"></div>
+        </div>
+
+        <!-- Blog Page -->
+        <div id="blog-page" class="page-section hidden py-12 page-transition">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display">Our Blog</h2>
+                        <p class="text-slate-600 max-w-xl text-lg">Insights, tips, and stories from the heart of Nigeria's service industry.</p>
+                    </div>
+                    <div class="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar">
+                        <button class="px-6 py-2 rounded-full bg-emerald-600 text-white font-medium whitespace-nowrap">All Posts</button>
+                        <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-50 font-medium border border-slate-100 whitespace-nowrap transition-all">Lifestyle</button>
+                        <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-50 font-medium border border-slate-100 whitespace-nowrap transition-all">Tips</button>
+                        <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-50 font-medium border border-slate-100 whitespace-nowrap transition-all">Business</button>
+                    </div>
+                </div>
+
+                <!-- Featured Post Placeholder -->
+                <div class="mb-16 relative group cursor-pointer overflow-hidden rounded-[2rem] shadow-xl border border-slate-100">
+                    <div class="aspect-[21/9] bg-slate-100 flex items-center justify-center text-slate-300">
+                        <i class="fas fa-newspaper text-8xl"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent p-8 md:p-12 flex flex-col justify-end">
+                        <span class="inline-block px-4 py-1 bg-emerald-500 text-white text-sm font-bold rounded-full mb-4 w-fit">Featured Post</span>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-4 max-w-2xl">Coming Soon: Inspiring Stories from Nigeria's Local Experts</h3>
+                        <p class="text-slate-200 max-w-xl text-lg hidden md:block">We're gathering insights and stories from the best service providers across the country. Stay tuned for our first deep dive.</p>
+                    </div>
+                </div>
+
+                <!-- Blog Grid Placeholder -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Post 1 -->
+                    <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="aspect-video bg-slate-50 flex items-center justify-center text-slate-200">
+                            <i class="fas fa-image text-4xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-emerald-600 text-sm font-bold mb-3 uppercase tracking-wider">
+                                <span>Tips & Tricks</span>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-3 font-display">How to Choose the Right Expert for Your Home</h4>
+                            <p class="text-slate-600 mb-4 line-clamp-2">Placeholder for an upcoming article about selecting the best service providers for your specific needs.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-slate-400 text-sm">Coming Soon</span>
+                                <span class="text-emerald-600 font-bold text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 2 -->
+                    <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="aspect-video bg-slate-50 flex items-center justify-center text-slate-200">
+                            <i class="fas fa-image text-4xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-emerald-600 text-sm font-bold mb-3 uppercase tracking-wider">
+                                <span>Business</span>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-3 font-display">The Growth of Local Services in 2026</h4>
+                            <p class="text-slate-600 mb-4 line-clamp-2">Exploring the digital transformation of local service marketplaces across Nigeria.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-slate-400 text-sm">Coming Soon</span>
+                                <span class="text-emerald-600 font-bold text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 3 -->
+                    <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="aspect-video bg-slate-50 flex items-center justify-center text-slate-200">
+                            <i class="fas fa-image text-4xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-emerald-600 text-sm font-bold mb-3 uppercase tracking-wider">
+                                <span>Lifestyle</span>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-3 font-display">Maximizing Productivity with On-Demand Help</h4>
+                            <p class="text-slate-600 mb-4 line-clamp-2">Why hiring professionals for daily tasks is the ultimate life hack for busy Nigerians.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-slate-400 text-sm">Coming Soon</span>
+                                <span class="text-emerald-600 font-bold text-sm">Read More <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- About Page -->
@@ -857,6 +1023,10 @@
                 <div>
                     <h4 class="text-white font-bold mb-6 font-display">Services</h4>
                     <ul class="space-y-4">
+                        <li><button onclick="showAbout()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">About Us</button></li>
+                        <li><button onclick="showBlog()"
+                                class="text-slate-400 hover:text-serva-400 transition text-sm">Blog</button></li>
                         <li><button onclick="showCategoryServices('repairs')"
                                 class="text-slate-400 hover:text-serva-400 transition text-sm">Repairs</button>
                         </li>

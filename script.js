@@ -9,6 +9,7 @@ async function loadAppData() {
     }
 }
 
+
 // Navigation State & Routing
 function hideAllPages() { 
     document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden')); 
@@ -26,6 +27,7 @@ function showContact() { window.location.hash = 'contact'; }
 function showFeedback() { window.location.hash = 'feedback'; }
 function showTerms() { window.location.hash = 'terms'; }
 function showGuarantee() { window.location.hash = 'guarantee'; }
+function showBlog() { window.location.hash = 'blog'; }
 
 function handleRouting() {
     const hash = window.location.hash.substring(1) || 'home';
@@ -55,6 +57,8 @@ function handleRouting() {
         document.getElementById('termsPage').classList.remove('hidden');
     } else if (path === 'guarantee') {
         document.getElementById('guaranteePage').classList.remove('hidden');
+    } else if (path === 'blog') {
+        document.getElementById('blog-page').classList.remove('hidden');
     } else {
         // Fallback to home
         window.location.hash = 'home';
@@ -415,4 +419,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Routing
     window.addEventListener('hashchange', handleRouting);
     handleRouting(); // First load
+});
+
+// FAQ Functionality
+document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.faq-trigger');
+    if (trigger) {
+        const item = trigger.closest('.faq-item');
+        const isActive = item.classList.contains('active');
+
+        // Close all other items
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.classList.remove('active');
+                const otherIcon = otherItem.querySelector('.faq-icon i');
+                if (otherIcon) otherIcon.className = 'fas fa-plus text-xs';
+            }
+        });
+
+        // Toggle current item
+        item.classList.toggle('active');
+        
+        // Update icon
+        const icon = trigger.querySelector('.faq-icon i');
+        if (icon) {
+            icon.className = item.classList.contains('active') ? 'fas fa-minus text-xs' : 'fas fa-plus text-xs';
+        }
+    }
 });

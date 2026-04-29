@@ -794,3 +794,41 @@ h6 {
 .service-card-premium:hover::before {
     opacity: 1;
 }
+
+/* FAQ Styles */
+.faq-content {
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.faq-item.active .faq-content {
+    max-height: 500px; /* Adjust as needed */
+    padding-bottom: 24px;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+    background-color: #ecfdf5 !important;
+    color: #059669 !important;
+}
+
+.faq-item.active {
+    border-color: #10b981;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog Styles */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#blog-page .group:hover img {
+    transform: scale(1.05);
+}
+
+#blog-page img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
