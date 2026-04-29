@@ -270,9 +270,17 @@ function renderProfileInternal(providerId) {
                 <div class="mb-8">
                     <h4 class="font-bold text-slate-900 mb-4 font-display">Recent Work</h4>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
-                        <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
-                        <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
+                        ${provider.portfolio && provider.portfolio.length ? 
+                            provider.portfolio.map(img => `
+                                <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                                    <img src="${img}" alt="Work" class="w-full h-full object-cover">
+                                </div>
+                            `).join('') : `
+                                <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
+                                <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
+                                <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>
+                            `
+                        }
                     </div>
                 </div>
                 
