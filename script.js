@@ -160,6 +160,11 @@ function renderProvidersListInternal(serviceId) {
                     <option value="Aguawka">Aguawka</option>
                     <option value="Ngozika">Ngozika</option>
                     <option value="Udoka">Udoka</option>
+                    <option value="PH">PH</option>
+                    <option value="Enugu">Enugu</option>
+                    <option value="Obosi">Obosi</option>
+                    <option value="Asaba">Asaba</option>
+                    <option value="Awka">Awka</option>
                     <option value="Kwata">Kwata</option>
                 </select>
             </div>
