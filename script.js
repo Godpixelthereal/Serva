@@ -306,11 +306,14 @@ function handleBooking(e) {
     e.preventDefault();
     const email = document.getElementById('bookingEmail').value;
     const provider = providersData.find(p => p.id === selectedProviderId);
-    showToast(`Welcome! Redirecting to chat with ${provider.name}...`);
+    const service = allServicesData.find(s => s.id === provider.serviceId);
+    const serviceName = service ? service.name : 'your service';
+    const message = `Hello Serva, I would like to book *${serviceName}* with *${provider.name}* (${provider.location}).%0A%0AMy email: ${encodeURIComponent(email)}`;
+    showToast(`Redirecting to WhatsApp to book ${provider.name}...`);
+    closeModals();
     setTimeout(() => {
-        window.open(`https://wa.me/+2348112174969?text=Hello, I would like to book your service: ${provider.name}. My email is ${email}`, '_blank');
-        closeModals();
-    }, 1500);
+        window.location.href = `https://wa.me/2348112174969?text=${message}`;
+    }, 1000);
 }
 
 function handleOffer(e) {
@@ -320,12 +323,13 @@ function handleOffer(e) {
     const phone = form.querySelector('input[placeholder="Phone Number (WhatsApp)"]').value;
     const location = form.querySelector('input[placeholder="Location (e.g. Ifite)"]').value;
     const service = form.querySelector('input[placeholder="Service offered (e.g. Plumbing)"]').value;
+    const message = `Hello Serva, I would like to offer my services on your platform.%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Location:* ${encodeURIComponent(location)}%0A*Service:* ${encodeURIComponent(service)}`;
     showToast("Application submitted! Redirecting to WhatsApp...");
+    closeModals();
+    form.reset();
     setTimeout(() => {
-        window.open(`https://wa.me/+2348112174969?text=Hello, I would like to offer my services on Serva.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0ALocation: ${encodeURIComponent(location)}%0AService: ${encodeURIComponent(service)}`, '_blank');
-        closeModals();
-        form.reset();
-    }, 1500);
+        window.location.href = `https://wa.me/2348112174969?text=${message}`;
+    }, 1000);
 }
 
 function handleFeedback(e) {
