@@ -311,10 +311,8 @@ function handleBooking(e) {
     const message = `Hello Serva, I would like to book *${serviceName}* with *${provider.name}* (${provider.location}).%0A%0AMy email: ${encodeURIComponent(email)}`;
     showToast(`Redirecting to WhatsApp to book ${provider.name}...`);
     closeModals();
-    setTimeout(() => {
-        const url = `https://wa.me/+2348112174969?text=${message}`;
-        window.open(url, '_blank');
-    }, 1000);
+    const url = `https://wa.me/+2348112174969?text=${message}`;
+    window.location.href = url;
 }
 
 function handleOffer(e) {
@@ -328,10 +326,8 @@ function handleOffer(e) {
     showToast("Application submitted! Redirecting to WhatsApp...");
     closeModals();
     form.reset();
-    setTimeout(() => {
-        const url = `https://wa.me/+2348112174969?text=${message}`;
-        window.open(url, '_blank');
-    }, 1000);
+    const url = `https://wa.me/+2348112174969?text=${message}`;
+    window.location.href = url;
 }
 
 function handleFeedback(e) {
