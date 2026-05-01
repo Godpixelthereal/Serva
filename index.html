@@ -169,7 +169,7 @@
                     <div class="flex justify-center gap-3 sm:gap-6 overflow-x-auto pb-4 px-2 hide-scrollbar snap-x snap-mandatory"
                         id="heroCards">
                         <!-- Card 1: Maintenance -->
-                        <div class="polaroid-card snap-center" style="--rotation: -6deg;">
+                        <div class="polaroid-card snap-center cursor-pointer hover:scale-105 transition-transform" style="--rotation: -6deg;" onclick="showCategoryServices('maintenance')">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
                                 <img src="maintenance_bg_localized_1774610594834.png" alt="Maintenance" class="polaroid-img">
@@ -181,7 +181,7 @@
                         </div>
 
                         <!-- Card 2: Repairs -->
-                        <div class="polaroid-card snap-center" style="--rotation: 3deg;">
+                        <div class="polaroid-card snap-center cursor-pointer hover:scale-105 transition-transform" style="--rotation: 3deg;" onclick="showCategoryServices('repairs')">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
                                 <img src="repairs_bg_localized_1774610544054.png" alt="Repairs" class="polaroid-img">
@@ -193,7 +193,7 @@
                         </div>
 
                         <!-- Card 3: Electrical -->
-                        <div class="polaroid-card snap-center" style="--rotation: -2deg;">
+                        <div class="polaroid-card snap-center cursor-pointer hover:scale-105 transition-transform" style="--rotation: -2deg;" onclick="showCategoryServices('electrical')">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
                                 <img src="electrical_bg_localized_1774610700416.png" alt="Electrical" class="polaroid-img">
@@ -205,7 +205,7 @@
                         </div>
 
                         <!-- Card 4: Logistics -->
-                        <div class="polaroid-card snap-center" style="--rotation: 5deg;">
+                        <div class="polaroid-card snap-center cursor-pointer hover:scale-105 transition-transform" style="--rotation: 5deg;" onclick="showCategoryServices('logistics')">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
                                 <img src="logistics.png" alt="Logistics" class="polaroid-img">
@@ -217,7 +217,7 @@
                         </div>
 
                         <!-- Card 5: Lifestyle -->
-                        <div class="polaroid-card snap-center" style="--rotation: -4deg;">
+                        <div class="polaroid-card snap-center cursor-pointer hover:scale-105 transition-transform" style="--rotation: -4deg;" onclick="showCategoryServices('lifestyle')">
                             <div class="clip-pin"></div>
                             <div class="polaroid-inner">
                                 <img src="lifestyle.png" alt="Lifestyle" class="polaroid-img">
@@ -446,7 +446,8 @@
                         </h2>
                         <p class="text-slate-500">Top picks for you this week</p>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" id="featuredServices">
+                        <!-- Dynamic Content will be injected here, but keeping hardcoded ones as fallback -->
                         <!-- Cleaning -->
                         <div class="service-card-new" onclick="showProviders(1)">
                             <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">Deep Cleaning</h3>
@@ -501,6 +502,7 @@
                         </div>
                         </div>
                     </div>
+            </section>
 
             <!-- FAQ Section -->
             <section id="faq" class="py-24 bg-slate-50/50">
@@ -579,6 +581,7 @@
                     </div>
                 </div>
             </section>
+        </div>
 
         <!-- Categories Page -->
         <div id="categoriesPage" class="page-section hidden page-transition">
@@ -788,11 +791,11 @@
                     <div class="bg-white rounded-3xl shadow-lg overflow-hidden border border-slate-100/80">
                         <div class="flex border-b border-slate-100 overflow-x-auto hide-scrollbar whitespace-nowrap"
                             id="feedbackTabs">
-                            <button onclick="setFeedbackTab('suggestion')"
+                            <button onclick="setFeedbackTab(event, 'suggestion')"
                                 class="px-6 sm:flex-1 py-4 font-semibold text-serva-500 border-b-2 border-serva-500 bg-serva-50/50">Suggestions</button>
-                            <button onclick="setFeedbackTab('enquiry')"
+                            <button onclick="setFeedbackTab(event, 'enquiry')"
                                 class="px-6 sm:flex-1 py-4 font-semibold text-slate-400 hover:bg-slate-50 transition">Enquiries</button>
-                            <button onclick="setFeedbackTab('complaint')"
+                            <button onclick="setFeedbackTab(event, 'complaint')"
                                 class="px-6 sm:flex-1 py-4 font-semibold text-slate-400 hover:bg-slate-50 transition">Complaints</button>
                         </div>
                         <form onsubmit="handleFeedback(event)" class="p-6 sm:p-10 space-y-5">

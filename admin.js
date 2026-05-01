@@ -17,6 +17,24 @@ function logoutAdmin() {
     location.reload();
 }
 
+function showAdminSection(section) {
+    // Basic navigation logic
+    document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.remove('active', 'text-white');
+        el.classList.add('text-slate-400');
+    });
+    
+    const activeBtn = document.getElementById(`nav-${section}`);
+    if (activeBtn) {
+        activeBtn.classList.add('active', 'text-white');
+        activeBtn.classList.remove('text-slate-400');
+    }
+
+    if (section !== 'providers') {
+        alert(`${section.charAt(0).toUpperCase() + section.slice(1)} module is coming soon!`);
+    }
+}
+
 function initAdmin() {
     // Load services for the select modal from data.js (allServicesData)
     const select = document.getElementById('modalServiceSelect');

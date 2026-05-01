@@ -174,49 +174,64 @@ function renderProvidersListInternal(serviceId) {
             </div>
             <p class="text-sm text-slate-400 font-medium">${filteredProviders.length} providers found</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            ${filteredProviders.map(p => `
-                <div class="provider-card-v2 group">
-                    <!-- Photo -->
-                    <div class="provider-photo-wrap">
-                        <img src="${p.photo}" alt="${p.name}" class="provider-photo">
-                    </div>
-
-                    <!-- Info -->
-                    <div class="provider-info">
-                        <h3 class="text-lg font-bold text-slate-900 font-display">${p.name}</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed mt-1 mb-4">${p.about}</p>
-
-                        <!-- Stats Row -->
-                        <div class="provider-stats-row">
-                            <div class="provider-stat-item">
-                                <i class="fas fa-user-check text-slate-400"></i>
-                                <span class="font-bold text-slate-800">${p.jobs}</span>
-                            </div>
-                            <div class="provider-stat-item">
-                                <i class="fas fa-star text-amber-400"></i>
-                                <span class="font-bold text-slate-800">${p.rating}</span>
-                            </div>
-                            <div class="provider-stat-item">
-                                <i class="fas fa-map-marker-alt text-serva-500"></i>
-                                <span class="text-sm text-slate-500">${p.location}</span>
-                            </div>
-                        </div>
-
-                        <!-- Price + CTA -->
-                        <div class="flex items-center justify-between mt-5">
-                            <div>
-                                <span class="text-xl font-bold text-slate-900">₦${p.price.toLocaleString()}</span>
-                            </div>
-                            <button onclick="showProfile(${p.id})" class="provider-book-btn">
-                                View Profile <i class="fas fa-user ml-1 text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('')}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="providersList">
+            ${renderProvidersItems(filteredProviders)}
         </div>
     `;
+
+    // Add event listener for filtering
+    const filter = document.getElementById('filterLocation');
+    if (filter) {
+        filter.addEventListener('change', (e) => {
+            const loc = e.target.value;
+            const providers = loc ? providersData.filter(p => p.serviceId === serviceId && p.location === loc) : providersData.filter(p => p.serviceId === serviceId);
+            const list = document.getElementById('providersList');
+            if (list) list.innerHTML = renderProvidersItems(providers);
+        });
+    }
+}
+
+function renderProvidersItems(providers) {
+    return providers.length ? providers.map(p => `
+        <div class="provider-card-v2 group">
+            <!-- Photo -->
+            <div class="provider-photo-wrap">
+                <img src="${p.photo}" alt="${p.name}" class="provider-photo">
+            </div>
+
+            <!-- Info -->
+            <div class="provider-info">
+                <h3 class="text-lg font-bold text-slate-900 font-display">${p.name}</h3>
+                <p class="text-sm text-slate-400 leading-relaxed mt-1 mb-4">${p.about}</p>
+
+                <!-- Stats Row -->
+                <div class="provider-stats-row">
+                    <div class="provider-stat-item">
+                        <i class="fas fa-user-check text-slate-400"></i>
+                        <span class="font-bold text-slate-800">${p.jobs}</span>
+                    </div>
+                    <div class="provider-stat-item">
+                        <i class="fas fa-star text-amber-400"></i>
+                        <span class="font-bold text-slate-800">${p.rating}</span>
+                    </div>
+                    <div class="provider-stat-item">
+                        <i class="fas fa-map-marker-alt text-serva-500"></i>
+                        <span class="text-sm text-slate-500">${p.location}</span>
+                    </div>
+                </div>
+
+                <!-- Price + CTA -->
+                <div class="flex items-center justify-between mt-5">
+                    <div>
+                        <span class="text-xl font-bold text-slate-900">₦${p.price.toLocaleString()}</span>
+                    </div>
+                    <button onclick="showProfile(${p.id})" class="provider-book-btn">
+                        View Profile <i class="fas fa-user ml-1 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('') : '<div class="col-span-full py-20 text-center"><p class="text-slate-400">No providers found in this location.</p></div>';
 }
 
 function showProfile(providerId) { window.location.hash = `provider/${providerId}`; }
@@ -353,26 +368,16 @@ function handleFeedback(e) {
     e.target.reset();
 }
 
-function setFeedbackTab(tab) {
-    currentFeedbackTab = tab;
+function setFeedbackTab(e, tab) {
     const buttons = document.querySelectorAll('#feedbackTabs button');
     buttons.forEach(btn => {
         btn.classList.remove('text-serva-500', 'border-b-2', 'border-serva-500', 'bg-serva-50/50');
         btn.classList.add('text-slate-500');
     });
-    event.target.classList.add('text-serva-500', 'border-b-2', 'border-serva-500', 'bg-serva-50/50');
+    e.target.classList.add('text-serva-500', 'border-b-2', 'border-serva-500', 'bg-serva-50/50');
 }
 
-function performSearch() {
-    const q = document.getElementById('heroSearch').value.toLowerCase();
-    if (!q) return;
-    const matches = allServicesData.filter(s => s.name.toLowerCase().includes(q));
-    if (matches.length) {
-        showCategoryServices(matches[0].catId);
-    } else {
-        showToast("No services found for your search.");
-    }
-}
+
 
 function showToast(msg) {
     const t = document.getElementById('toast');
