@@ -93,7 +93,21 @@ function renderCategories() {
 function renderFeatured() {
     const grid = document.getElementById('featuredServices');
     if (!grid) return;
-    grid.innerHTML = allServicesData.slice(0, 4).map(svc => `
+    
+    // Services to show on home page (ids 1, 2, 9, 14)
+    const featuredIds = [1, 2, 14, 9];
+    const featuredServices = featuredIds.map(id => allServicesData.find(s => s.id === id)).filter(Boolean);
+
+    grid.innerHTML = featuredServices.map(svc => {
+        // Find minimum price from providers for this service
+        const providers = providersData.filter(p => p.serviceId === svc.id);
+        const minPrice = providers.length > 0 
+            ? Math.min(...providers.map(p => p.price))
+            : (svc.price || 0);
+
+        const priceDisplay = minPrice > 0 ? `₦${minPrice.toLocaleString()}` : 'Contact Us';
+
+        return `
         <div class="service-card-new" onclick="showProviders(${svc.id})">
             <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">${svc.name}</h3>
             <p class="text-sm text-slate-500 mb-8 leading-relaxed">${svc.description}</p>
@@ -103,11 +117,11 @@ function renderFeatured() {
                 </div>
                 <div class="text-right">
                     <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Starting from</p>
-                    <p class="text-lg font-bold text-serva-600">$${svc.price}</p>
+                    <p class="text-lg font-bold text-serva-600">${priceDisplay}</p>
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 function showCategoryServices(catId) { window.location.hash = `category/${catId}`; }

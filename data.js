@@ -11,24 +11,24 @@ const categories = [
 ];
 
 let allServicesData = [
-    { id: 1, catId: 'maintenance', name: 'Cleaning', location: 'Ifite', description: 'Thorough home, office, and post-construction cleaning services to keep your space spotless and comfortable.', icon: 'fa-broom' },
-    { id: 2, catId: 'repairs', name: 'Expert Plumbing', location: 'Regina', description: 'Fixing leaks, pipe installations, drainage issues, and everything in between to keep your water systems running smoothly.', icon: 'fa-faucet' },
-    { id: 3, catId: 'repairs', name: 'Welding', location: 'Amansea', description: 'Professional metal joining, fabrication, and structural repairs for both residential and commercial needs.', icon: 'fa-tools' },
-    { id: 4, catId: 'maintenance', name: 'Decluttering', location: 'Arroma', description: 'Organized removal and sorting of unwanted items to restore order and breathing room to your space.', icon: 'fa-box-open' },
-    { id: 5, catId: 'maintenance', name: 'Fumigation', location: 'Tempsite', description: 'Effective pest control and fumigation treatments to protect your home or business from infestation.', icon: 'fa-spray-can' },
-    { id: 6, catId: 'electrical', name: 'Wiring', location: 'Okpuno', description: 'Safe and compliant electrical wiring installations and repairs for new builds and existing structures.', icon: 'fa-plug' },
-    { id: 7, catId: 'electrical', name: 'Fixtures', location: 'Amaenyi', description: 'Professional fitting of lighting, switches, sockets, and other electrical fixtures.', icon: 'fa-lightbulb' },
-    { id: 8, catId: 'electrical', name: 'Appliance installation and maintenance', location: 'Amawbia', description: 'Expert setup and routine servicing of household and commercial appliances to extend their lifespan.', icon: 'fa-tv' },
-    { id: 9, catId: 'lifestyle', name: 'Shopping', location: 'Government house', description: 'Personal shopping for essentials and other needs, delivered to your preferred location.', icon: 'fa-shopping-cart' },
-    { id: 10, catId: 'lifestyle', name: 'Home car-washing', location: 'Aguawka', description: 'Convenient, thorough vehicle cleaning carried out right at your doorstep.', icon: 'fa-car' },
-    { id: 11, catId: 'building', name: 'Carpentry', location: 'Ngozika', description: 'Custom woodwork, furniture making, repairs, and installations crafted to your specification.', icon: 'fa-hammer' },
-    { id: 12, catId: 'building', name: 'Painting', location: 'Udoka', description: 'Interior and exterior painting services that give your space a beautiful, refreshed finish.', icon: 'fa-paint-roller' },
-    { id: 13, catId: 'personal', name: 'Hairstyling/Barbing', location: 'Kwata', description: 'Professional hair and grooming services brought directly to your home or preferred location.', icon: 'fa-cut' },
-    { id: 14, catId: 'personal', name: 'Laundry', location: 'Ifite', description: 'Washing, drying, ironing, and folding services handled with care and returned fresh.', icon: 'fa-tshirt' },
-    { id: 15, catId: 'logistics', name: 'Relocation', location: 'Regina', description: 'Stress-free residential and commercial moving services, carefully handled from start to finish.', icon: 'fa-truck-loading' },
-    { id: 16, catId: 'logistics', name: 'Haulage', location: 'Amansea', description: 'Reliable transportation of large equipment, furniture, and bulk goods to any destination.', icon: 'fa-truck-moving' },
-    { id: 17, catId: 'logistics', name: 'Errands', location: 'Arroma', description: 'Trusted assistance with time-sensitive tasks and day-to-day runs so you can focus on what matters.', icon: 'fa-running' },
-    { id: 18, catId: 'others', name: 'Personalized, tailored, or emergency services', location: 'Tempsite', description: 'Can’t find what you need? We accommodate unique, custom, and urgent requests to ensure no need goes unmet.', icon: 'fa-star' }
+    { id: 1, catId: 'maintenance', name: 'Cleaning', location: 'Ifite', description: 'Thorough home, office, and post-construction cleaning services to keep your space spotless and comfortable.', icon: 'fa-broom', price: 4500 },
+    { id: 2, catId: 'repairs', name: 'Expert Plumbing', location: 'Regina', description: 'Fixing leaks, pipe installations, drainage issues, and everything in between to keep your water systems running smoothly.', icon: 'fa-faucet', price: 8000 },
+    { id: 3, catId: 'repairs', name: 'Welding', location: 'Amansea', description: 'Professional metal joining, fabrication, and structural repairs for both residential and commercial needs.', icon: 'fa-tools', price: 0 },
+    { id: 4, catId: 'maintenance', name: 'Decluttering', location: 'Arroma', description: 'Organized removal and sorting of unwanted items to restore order and breathing room to your space.', icon: 'fa-box-open', price: 0 },
+    { id: 5, catId: 'maintenance', name: 'Fumigation', location: 'Tempsite', description: 'Effective pest control and fumigation treatments to protect your home or business from infestation.', icon: 'fa-spray-can', price: 0 },
+    { id: 6, catId: 'electrical', name: 'Wiring', location: 'Okpuno', description: 'Safe and compliant electrical wiring installations and repairs for new builds and existing structures.', icon: 'fa-plug', price: 8000 },
+    { id: 7, catId: 'electrical', name: 'Fixtures', location: 'Amaenyi', description: 'Professional fitting of lighting, switches, sockets, and other electrical fixtures.', icon: 'fa-lightbulb', price: 0 },
+    { id: 8, catId: 'electrical', name: 'Appliance installation and maintenance', location: 'Amawbia', description: 'Expert setup and routine servicing of household and commercial appliances to extend their lifespan.', icon: 'fa-tv', price: 0 },
+    { id: 9, catId: 'lifestyle', name: 'Shopping', location: 'Government house', description: 'Personal shopping for essentials and other needs, delivered to your preferred location.', icon: 'fa-shopping-cart', price: 0 },
+    { id: 10, catId: 'lifestyle', name: 'Home car-washing', location: 'Aguawka', description: 'Convenient, thorough vehicle cleaning carried out right at your doorstep.', icon: 'fa-car', price: 0 },
+    { id: 11, catId: 'building', name: 'Carpentry', location: 'Ngozika', description: 'Custom woodwork, furniture making, repairs, and installations crafted to your specification.', icon: 'fa-hammer', price: 7000 },
+    { id: 12, catId: 'building', name: 'Painting', location: 'Udoka', description: 'Interior and exterior painting services that give your space a beautiful, refreshed finish.', icon: 'fa-paint-roller', price: 10000 },
+    { id: 13, catId: 'personal', name: 'Hairstyling/Barbing', location: 'Kwata', description: 'Professional hair and grooming services brought directly to your home or preferred location.', icon: 'fa-cut', price: 4000 },
+    { id: 14, catId: 'personal', name: 'Laundry', location: 'Ifite', description: 'Washing, drying, ironing, and folding services handled with care and returned fresh.', icon: 'fa-tshirt', price: 3000 },
+    { id: 15, catId: 'logistics', name: 'Relocation', location: 'Regina', description: 'Stress-free residential and commercial moving services, carefully handled from start to finish.', icon: 'fa-truck-loading', price: 15000 },
+    { id: 16, catId: 'logistics', name: 'Haulage', location: 'Amansea', description: 'Reliable transportation of large equipment, furniture, and bulk goods to any destination.', icon: 'fa-truck-moving', price: 0 },
+    { id: 17, catId: 'logistics', name: 'Errands', location: 'Arroma', description: 'Trusted assistance with time-sensitive tasks and day-to-day runs so you can focus on what matters.', icon: 'fa-running', price: 2000 },
+    { id: 18, catId: 'others', name: 'Personalized, tailored, or emergency services', location: 'Tempsite', description: 'Can’t find what you need? We accommodate unique, custom, and urgent requests to ensure no need goes unmet.', icon: 'fa-star', price: 7500 }
 ];
 
 let providersData = [
