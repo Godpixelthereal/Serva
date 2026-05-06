@@ -32,9 +32,6 @@ let allServicesData = [
 ];
 
 let providersData = [
-    { id: 101, serviceId: 1, name: 'Sarah Cleaners', location: 'Ifite', price: 5000, rating: 4.8, photo: 'provider_sarah_new_1774610165024.png', about: '5 years of experience in eco-friendly cleaning.', jobs: 527 },
-    { id: 102, serviceId: 1, name: 'EcoShine Team', location: 'Arroma', price: 4500, rating: 4.5, photo: 'provider_ecoshine_new_1774610190997.png', about: 'Fast and reliable cleaning services.', jobs: 413 },
-    { id: 103, serviceId: 2, name: 'John the Plumber', location: 'Regina', price: 8000, rating: 4.9, photo: 'provider_john_new_1774610491464.png', about: 'Certified plumber with 10+ years experience.', jobs: 612 },
     { id: 104, serviceId: 1, name: 'Ojimba Munachi Precious', location: 'Ifite', price: 3000, rating: 5.0, photo: 'images/providers/image29.jpg', about: 'Professional Cleaning, laundry, cooking and errand services.', portfolio: ['images/providers/image29.jpg', 'images/providers/image36.jpg'], jobs: 0 },
     { id: 105, serviceId: 14, name: 'Okeke Ebuka Paul', location: 'Ziks Avenue', price: 500, rating: 5.0, photo: 'images/providers/image10.jpg', about: 'Laundry Services', portfolio: ['images/providers/image10.jpg', 'images/providers/image25.jpg'], jobs: 0 },
     { id: 106, serviceId: 1, name: 'Jennifer Amarachi Ajuk (Haven Shine Cleaning)', location: 'Amawbia', price: 5500, rating: 5.0, photo: 'provider-sarah.png', about: 'Professional cleaning service specializing in deep cleaning, upholstery, post construction and maintenance cleaning.', jobs: 0 },
