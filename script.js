@@ -657,12 +657,29 @@ function toggleFAQ(button) {
 
 // Init
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadAppData();
-    renderFeatured();
-    renderFAQ();
-    animateCounters();
-    
-    // Initialize Routing
+    // 1. Initialize Routing & Event Listeners IMMEDIATELY
     window.addEventListener('hashchange', handleRouting);
-    handleRouting(); // First load
+    handleRouting(); // First load to show UI sections
+    
+    // 2. Fetch Data in the background
+    try {
+        // Run loadAppData with a timeout to prevent hanging the whole site
+        const dataPromise = loadAppData();
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("Data load timeout")), 8000)
+        );
+
+        await Promise.race([dataPromise, timeoutPromise]);
+        
+        // 3. Post-load UI updates
+        renderFeatured();
+        renderFAQ();
+        animateCounters();
+    } catch (err) {
+        console.warn("Background data load failed or timed out:", err);
+        // UI is already working with fallback data from data.js
+        renderFeatured();
+        renderFAQ();
+        animateCounters();
+    }
 });

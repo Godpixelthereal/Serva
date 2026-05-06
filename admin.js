@@ -21,7 +21,8 @@ function checkAdminAccess() {
         document.getElementById('loginOverlay').classList.add('hidden');
         document.getElementById('mainSidebar').classList.remove('hidden');
         document.getElementById('mainDashboard').classList.remove('hidden');
-        initAdmin();
+        // Initialize dashboard UI immediately, then load data
+        showAdminSection('providers');
     } else {
         document.getElementById('loginError').classList.remove('hidden');
     }
@@ -59,15 +60,30 @@ function showAdminSection(section) {
 }
 
 function initAdmin() {
-    // Load services for the select modal from data.js (allServicesData)
+    // Load services for the select modal from data.js (fallback)
     const select = document.getElementById('modalServiceSelect');
     if (typeof allServicesData !== 'undefined') {
         select.innerHTML = allServicesData.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-    } else {
-        console.error("allServicesData is not defined. Ensure data.js is loaded.");
     }
     
-    renderAdminProviders();
+    // Fetch data in background
+    loadAdminData();
+}
+
+async function loadAdminData() {
+    try {
+        const client = getSupabase();
+        if (!client) return;
+
+        // Fetch services from Supabase to update the modal
+        const { data: services } = await client.from('services').select('*');
+        if (services) {
+            const select = document.getElementById('modalServiceSelect');
+            select.innerHTML = services.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+        }
+    } catch (e) {
+        console.error("Admin data load error:", e);
+    }
 }
 
 async function renderAdminProviders() {
