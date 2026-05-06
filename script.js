@@ -1,16 +1,16 @@
 // Supabase Initialization
 const SUPABASE_URL = "https://zcxixbrtdmwtjxtbnezk.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MAqGo_FVYT3ZCGSJ1NvO3w_PyjZkOhV";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function loadAppData() {
     try {
         // Fetch Services
-        const { data: services, error: sError } = await supabase.from('services').select('*');
+        const { data: services, error: sError } = await supabaseClient.from('services').select('*');
         if (!sError) allServicesData = services;
 
         // Fetch Approved Providers
-        const { data: providers, error: pError } = await supabase.from('providers').select('*').eq('status', 'approved');
+        const { data: providers, error: pError } = await supabaseClient.from('providers').select('*').eq('status', 'approved');
         if (!pError) providersData = providers;
         
         console.log("Supabase data loaded successfully");
@@ -477,13 +477,13 @@ async function handleJoinForm(e) {
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = `applications/${fileName}`;
 
-            const { data: uploadData, error: uploadError } = await supabase.storage
+            const { data: uploadData, error: uploadError } = await supabaseClient.storage
                 .from('provider-portfolios')
                 .upload(filePath, file);
 
             if (uploadError) throw uploadError;
 
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('provider-portfolios')
                 .getPublicUrl(filePath);
                 
@@ -491,7 +491,7 @@ async function handleJoinForm(e) {
         }
 
         // 2. Insert Provider Data
-        const { error } = await supabase.from('providers').insert([{
+        const { error } = await supabaseClient.from('providers').insert([{
             name: data.name,
             business_name: data.business_name,
             location: data.location,

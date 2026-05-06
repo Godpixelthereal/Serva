@@ -1,7 +1,7 @@
 // Supabase Initialization
 const SUPABASE_URL = "https://zcxixbrtdmwtjxtbnezk.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MAqGo_FVYT3ZCGSJ1NvO3w_PyjZkOhV";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Admin Auth & Logic
 const PASSCODE = "2024";
@@ -62,7 +62,7 @@ function initAdmin() {
 }
 
 async function renderAdminProviders() {
-    const { data: displayProviders, error } = await supabase.from('providers').select('*').eq('status', 'approved');
+    const { data: displayProviders, error } = await supabaseClient.from('providers').select('*').eq('status', 'approved');
     if (error) { console.error("Fetch error:", error); return; }
 
     const list = document.getElementById('adminProviderList');
@@ -184,7 +184,7 @@ function saveProvider(e) {
 }
 
 async function renderAdminApplications() {
-    const { data: applications, error } = await supabase.from('providers').select('*').eq('status', 'pending');
+    const { data: applications, error } = await supabaseClient.from('providers').select('*').eq('status', 'pending');
     if (error) { console.error("Fetch error:", error); return; }
 
     const list = document.getElementById('adminApplicationList');
@@ -228,7 +228,7 @@ async function renderAdminApplications() {
 }
 
 async function approveApplication(id) {
-    const { error } = await supabase.from('providers').update({ status: 'approved' }).eq('id', id);
+    const { error } = await supabaseClient.from('providers').update({ status: 'approved' }).eq('id', id);
     if (error) {
         console.error("Approve error:", error);
         alert("Failed to approve application.");
