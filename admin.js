@@ -1,3 +1,8 @@
+// Supabase Initialization
+const SUPABASE_URL = "https://zcxixbrtdmwtjxtbnezk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_MAqGo_FVYT3ZCGSJ1NvO3w_PyjZkOhV";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Admin Auth & Logic
 const PASSCODE = "2024";
 
@@ -18,7 +23,6 @@ function logoutAdmin() {
 }
 
 function showAdminSection(section) {
-    // Basic navigation logic
     document.querySelectorAll('.nav-item').forEach(el => {
         el.classList.remove('active', 'text-white');
         el.classList.add('text-slate-400');
@@ -30,7 +34,17 @@ function showAdminSection(section) {
         activeBtn.classList.remove('text-slate-400');
     }
 
-    if (section !== 'providers') {
+    // Hide all sections
+    document.getElementById('section-providers').classList.add('hidden');
+    document.getElementById('section-applications').classList.add('hidden');
+
+    if (section === 'providers') {
+        document.getElementById('section-providers').classList.remove('hidden');
+        renderAdminProviders();
+    } else if (section === 'applications') {
+        document.getElementById('section-applications').classList.remove('hidden');
+        renderAdminApplications();
+    } else {
         alert(`${section.charAt(0).toUpperCase() + section.slice(1)} module is coming soon!`);
     }
 }
@@ -47,9 +61,9 @@ function initAdmin() {
     renderAdminProviders();
 }
 
-function renderAdminProviders() {
-    const stored = localStorage.getItem('serva_providers');
-    const displayProviders = stored ? JSON.parse(stored) : providersData;
+async function renderAdminProviders() {
+    const { data: displayProviders, error } = await supabase.from('providers').select('*').eq('status', 'approved');
+    if (error) { console.error("Fetch error:", error); return; }
 
     const list = document.getElementById('adminProviderList');
     list.innerHTML = displayProviders.map(p => {
@@ -167,4 +181,68 @@ function saveProvider(e) {
     closeModal();
     e.target.reset();
     renderAdminProviders(); // Refresh list
+}
+
+async function renderAdminApplications() {
+    const { data: applications, error } = await supabase.from('providers').select('*').eq('status', 'pending');
+    if (error) { console.error("Fetch error:", error); return; }
+
+    const list = document.getElementById('adminApplicationList');
+    if (!applications.length) {
+        list.innerHTML = `<tr><td colspan="4" class="px-6 py-12 text-center text-slate-400">No pending applications found.</td></tr>`;
+        return;
+    }
+
+    list.innerHTML = applications.map(app => {
+        const serviceName = (typeof allServicesData !== 'undefined') 
+            ? allServicesData.find(s => s.id == app.serviceId)?.name || 'Service'
+            : 'Service';
+
+        return `
+        <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+            <td class="px-6 py-4">
+                <div class="flex flex-col">
+                    <span class="font-bold text-slate-900">${app.name}</span>
+                    <span class="text-xs text-slate-400">${app.business_name}</span>
+                </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-slate-500">${serviceName}</td>
+            <td class="px-6 py-4">
+                <div class="flex flex-col gap-1">
+                    <div class="flex items-center gap-2 text-xs font-medium text-slate-600">
+                        <i class="fas fa-phone text-emerald-500"></i> ${app.call_line}
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-medium text-slate-600">
+                        <i class="fab fa-whatsapp text-emerald-500"></i> ${app.whatsapp_line}
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4 text-right">
+                <div class="flex justify-end gap-2">
+                    <button class="bg-emerald-500 text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-emerald-600 transition" onclick="approveApplication(${app.id})">Approve</button>
+                    <button class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg text-xs font-bold hover:bg-red-50 hover:text-red-600 transition" onclick="rejectApplication(${app.id})">Reject</button>
+                </div>
+            </td>
+        </tr>
+    `}).join('');
+}
+
+async function approveApplication(id) {
+    const { error } = await supabase.from('providers').update({ status: 'approved' }).eq('id', id);
+    if (error) {
+        console.error("Approve error:", error);
+        alert("Failed to approve application.");
+        return;
+    }
+    
+    alert("Application approved! The provider is now live.");
+    renderAdminApplications();
+}
+
+function rejectApplication(id) {
+    if (!confirm("Are you sure you want to reject this application?")) return;
+    const pending = JSON.parse(localStorage.getItem('serva_pending_applications') || '[]');
+    const updatedPending = pending.filter(a => a.id !== id);
+    localStorage.setItem('serva_pending_applications', JSON.stringify(updatedPending));
+    renderAdminApplications();
 }

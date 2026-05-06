@@ -1,11 +1,24 @@
-// Data Orchestration
+// Supabase Initialization
+const SUPABASE_URL = "https://zcxixbrtdmwtjxtbnezk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_MAqGo_FVYT3ZCGSJ1NvO3w_PyjZkOhV";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 async function loadAppData() {
-    // In a live Supabase setup, you would fetch here:
-    // providersData = await fetchProvidersFromSupabase();
-    // For now, we'll initialize from local storage if available (mocking persistence)
-    const stored = localStorage.getItem('serva_providers');
-    if (stored) {
-        providersData = JSON.parse(stored);
+    try {
+        // Fetch Services
+        const { data: services, error: sError } = await supabase.from('services').select('*');
+        if (!sError) allServicesData = services;
+
+        // Fetch Approved Providers
+        const { data: providers, error: pError } = await supabase.from('providers').select('*').eq('status', 'approved');
+        if (!pError) providersData = providers;
+        
+        console.log("Supabase data loaded successfully");
+    } catch (e) {
+        console.error("Supabase load error:", e);
+        // Fallback to local storage or data.js if Supabase fails
+        const stored = localStorage.getItem('serva_providers');
+        if (stored) providersData = JSON.parse(stored);
     }
 }
 
@@ -28,6 +41,7 @@ function showFeedback() { window.location.hash = 'feedback'; }
 function showTerms() { window.location.hash = 'terms'; }
 function showGuarantee() { window.location.hash = 'guarantee'; }
 function showBlog() { window.location.hash = 'blog'; }
+function showJoin() { window.location.hash = 'join'; }
 
 function handleRouting() {
     const hash = window.location.hash.substring(1) || 'home';
@@ -59,6 +73,9 @@ function handleRouting() {
         document.getElementById('guaranteePage').classList.remove('hidden');
     } else if (path === 'blog') {
         document.getElementById('blog-page').classList.remove('hidden');
+    } else if (path === 'join') {
+        document.getElementById('joinPage').classList.remove('hidden');
+        renderJoinServices();
     } else {
         // Fallback to home
         window.location.hash = 'home';
@@ -397,7 +414,114 @@ function showToast(msg) {
     const t = document.getElementById('toast');
     document.getElementById('toastMessage').textContent = msg;
     t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 5000);
+}
 
+// Become a Provider Logic
+function renderJoinServices() {
+    const select = document.getElementById('joinServiceSelect');
+    if (!select) return;
+    select.innerHTML = '<option value="" disabled selected>Select a category</option>' + 
+        allServicesData.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+}
+
+let uploadedFiles = [];
+function previewImages(input) {
+    const grid = document.getElementById('imagePreviewGrid');
+    const files = Array.from(input.files);
+    
+    files.forEach(file => {
+        if (uploadedFiles.length >= 5) return;
+        uploadedFiles.push(file);
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const div = document.createElement('div');
+            div.className = 'aspect-square rounded-2xl overflow-hidden relative group';
+            div.innerHTML = `
+                <img src="${e.target.result}" class="w-full h-full object-cover">
+                <button type="button" onclick="removeImage(${uploadedFiles.length - 1})" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
+                    <i class="fas fa-times text-[10px]"></i>
+                </button>
+            `;
+            grid.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function removeImage(index) {
+    uploadedFiles.splice(index, 1);
+    const grid = document.getElementById('imagePreviewGrid');
+    const divs = grid.querySelectorAll('div:not(label)');
+    if (divs[index]) divs[index].remove();
+}
+
+async function handleJoinForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitJoinBtn');
+    const originalText = btn.innerHTML;
+    
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Processing...`;
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    try {
+        const portfolioUrls = [];
+        
+        // 1. Upload Images to Supabase Storage
+        for (const file of uploadedFiles) {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+            const filePath = `applications/${fileName}`;
+
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('provider-portfolios')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('provider-portfolios')
+                .getPublicUrl(filePath);
+                
+            portfolioUrls.push(publicUrl);
+        }
+
+        // 2. Insert Provider Data
+        const { error } = await supabase.from('providers').insert([{
+            name: data.name,
+            business_name: data.business_name,
+            location: data.location,
+            about: data.about,
+            call_line: data.call_line,
+            whatsapp_line: data.whatsapp_line,
+            price: parseInt(data.price),
+            service_id: parseInt(data.serviceId),
+            photo_url: portfolioUrls[0] || 'provider-sarah.png', // First image is profile pic
+            portfolio_urls: portfolioUrls,
+            status: 'pending',
+            rating: 5.0,
+            jobs: 0
+        }]);
+
+        if (error) throw error;
+
+        showToast("Application submitted! We will review and contact you shortly.");
+        e.target.reset();
+        document.getElementById('imagePreviewGrid').querySelectorAll('div:not(label)').forEach(el => el.remove());
+        uploadedFiles = [];
+        showHome();
+    } catch (err) {
+        console.error("Submission error:", err);
+        showToast("Error uploading application. Please check your connection.");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
     // Add entering animation classes
     t.classList.add('animate-slide-up');
 
