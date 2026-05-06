@@ -60,3 +60,60 @@ let providersData = [
     { id: 126, serviceId: 15, name: 'Chidinma Ofili (Purity Agency)', location: 'Ifite', price: 15000, rating: 5.0, photo: 'cleaning_purity_1.png', about: 'Professional relocation and cleaning services. Cleaning Packages: \n- Student Self-con: 15k (Residential), 25k (Deep), 35k (Industrial)\n- Room & Parlor: 25k (Residential), 35k (Deep), 45k (Industrial)\n- 2-Bedroom: 40k (Residential), 50k (Deep), 60k (Industrial)\n- 3-Bedroom: 50k (Residential), 65k (Deep), 80k (Industrial)', portfolio: ['cleaning_purity_1.png', 'cleaning_purity_2.png', 'cleaning_purity_3.png', 'cleaning_purity_4.png'], jobs: 0 },
     { id: 127, serviceId: 13, name: 'Lawrence Oluebube Divine (She\'s Divine Beauty Salon)', location: 'Yahoo Junction, Ifite', price: 4000, rating: 5.0, photo: 'provider-sarah.png', about: 'Professional braiding and hair styling services.', jobs: 0 }
 ];
+const faqData = [
+    {
+        category: 'How it Works',
+        questions: [
+            { q: 'What is Serva?', a: 'Serva is an online service marketplace that connects you with trusted, verified local service providers in Awka, Anambra State. Whether you need a plumber, cleaner, electrician, or handyman, Serva lets you find, compare, and book the service you need quickly and conveniently from your phone or computer.' },
+            { q: 'What kinds of services can I book on Serva?', a: 'You can book a wide range of everyday, traditional services including plumbing, electrical repairs, cleaning, maintenance and handyman work, errands, and more. We are constantly onboarding new providers, so the list keeps growing. Browse our services page to see everything currently available near you.' },
+            { q: 'How do I book a service?', a: 'Booking is simple. Browse or search for the service you need, view available providers in your area, select your preferred provider, choose your date and time, and confirm your booking. You will receive an instant confirmation and be kept updated throughout the process.' },
+            { q: 'How quickly can I get a service provider after booking?', a: 'This depends on the type of service and the service provider’s availability. For many services, same-day or next-day availability is possible. Once your booking is confirmed, you will be given an estimated arrival time and receive updates as the provider makes their way to you.' },
+            { q: 'Can I schedule a service in advance or is it same-day only?', a: 'Both options are available. You can book a service for immediate or same-day delivery (depending on the type of service and the service provider’s availability), or schedule it for a future date and time that suits you. We recommend booking in advance for better time slot options.' },
+            { q: 'Can I choose my preferred service provider, or is one assigned to me?', a: 'You are in control. Serva allows you to browse provider profiles, read their reviews and ratings, and choose who you want to work with.' },
+            { q: 'How do I track my service after booking?', a: 'Once your booking is confirmed and underway, you will receive real-time tracking updates so you always know the status of your service. From confirmation to arrival to completion, Serva keeps you informed every step of the way.' }
+        ]
+    },
+    {
+        category: 'Payment',
+        questions: [
+            { q: 'How much does it cost to use Serva as a customer?', a: 'There are no platform fees, subscription costs, or hidden charges added to your bill, you only pay the agreed service charge.' },
+            { q: 'When exactly do I pay (before or after the service)?', a: 'The entire payment is made upfront. However, service providers receive only the cost of materials or preparation upfront (where applicable), and they receive the full payment/service fee once the service has been delivered to your satisfaction. This protects both the customer and service provider; and also ensures accountability from the provider.' },
+            { q: 'How do I make payment?', a: 'Payment details and accepted methods are clearly communicated at checkout.' },
+            { q: 'Are there any hidden charges or extra fees?', a: 'None at all. Serva operates a zero hidden charges policy. The price you see is the price you pay. Any applicable service fees or charges are communicated clearly and upfront before you confirm your booking, no surprises.' },
+            { q: 'What if I am not satisfied, can I get a refund?', a: 'Your satisfaction matters to us. If a service does not meet the agreed standard or expectation, please raise a complaint through the platform immediately after service delivery. Our team will review the case and work to resolve it fairly, which may include a compensation depending on the circumstances.' },
+            { q: 'What happens if I pay and the provider does not show up?', a: 'In the event of a no-show, please contact our support team immediately and we will assist you in rebooking or resolving the issue promptly.' }
+        ]
+    },
+    {
+        category: 'Trust & Safety',
+        questions: [
+            { q: 'How do I know the service providers are trustworthy?', a: 'Every service provider on Serva goes through a strict vetting and onboarding process before they are listed on the platform. We verify their identity, assess their skill level, and ensure they understand and agree to Serva\'s standards of service delivery, professionalism, and customer rights.' },
+            { q: 'What documents are required from providers?', a: 'Service providers are required to submit a valid National Identification Number (NIN) and a CAC registration number for registered businesses. Additional documentation may be required depending on the nature of the service. This ensures every provider on Serva is identifiable and accountable.' },
+            { q: 'Can I read reviews before booking a provider?', a: 'Yes. Every provider on Serva has a profile that includes ratings and reviews from previous customers. We encourage all customers to leave honest feedback after each service. This helps the community make informed decisions and motivates providers to maintain high standards.' },
+            { q: 'What if a provider damages my property during service delivery?', a: 'In the event of property damage caused by a provider, please document the damage immediately and report it to Serva\'s support team through the platform. We take such incidents seriously and will facilitate a resolution between you and the provider, which may include compensation or repair depending on the case.' },
+            { q: 'Will my home address be visible to the provider before the booking is confirmed?', a: 'Your full address is only shared with the assigned service provider once a booking has been confirmed. This ensures your privacy is protected until a trusted match has been made.' }
+        ]
+    },
+    {
+        category: 'For Providers',
+        questions: [
+            { q: 'How do I register as a service provider on Serva?', a: 'To join Serva as a service provider, visit our website and complete the service provider’s onboarding form. You will be required to provide your personal details, the service(s) you offer, your valid NIN, and your CAC number (if you operate a registered business). Our onboarding team will review your application and contact you within a short period to complete the process.' },
+            { q: 'Is there a fee to join Serva as a provider?', a: 'No. Joining Serva as a service provider is completely free. There are no registration fees, listing fees, or monthly charges. Serva only earns when you earn through a small commission on successfully completed and paid services.' },
+            { q: 'How does Serva\'s commission work?', a: 'Serva operates a transparent, fixed commission model. For everyday services (e.g., house chores, errands, maintenance), Serva takes a 10% commission on services valued below ₦100,000 and 15% on services valued above ₦100,000. For larger project-based services, the commission is 10% for jobs between ₦100,000 and ₦350,000, and 15% for jobs above ₦350,000. All commission rates are communicated clearly during onboarding, no surprises.' },
+            { q: 'How and when do I receive my earnings after a job?', a: 'Once a service is completed your earnings (after Serva\'s commission) are processed and transferred to your registered account.' },
+            { q: 'Can I list more than one type of service?', a: 'No. If you are skilled in more than one area, you have to choose ONE of the multiple services to be shown on your profile.' }
+        ]
+    },
+    {
+        category: 'Location & Platform',
+        questions: [
+            { q: 'Where is Serva currently available?', a: 'Serva is currently available in Awka, Anambra State, Nigeria. This is our launch city and we are actively growing our provider network here. We have plans to expand to other cities across Nigeria and beyond in the near future.' },
+            { q: 'Do service providers come to my exact location?', a: 'Yes. Serva is a location-based platform, meaning service providers come directly to your home, office, or wherever the service is needed.' },
+            { q: 'Do I need to create an account to book a service?', a: 'Yes, creating an account is required to complete a booking on Serva. Registration is quick and free, all you need is your name, phone number, and email address.' },
+            { q: 'Is there a mobile app or is it website only for now?', a: 'Serva is currently available as a website, accessible from any smartphone, tablet, or computer browser. Our website is designed to be mobile-friendly for a smooth experience on your phone. A dedicated mobile app is part of our roadmap as we grow.' },
+            { q: 'What if I have trouble using the website?', a: 'If you experience any difficulty navigating or using the Serva website, our customer support team is available to assist you. You can reach us via the contact options on the website, including email, or our WhatsApp support line.' },
+            { q: 'I am new to Awka, how do I find services near me?', a: 'Welcome to Awka! Serva was built with you in mind. Simply create an account, enter your current address or allow the platform to detect your location, and you will immediately see all available services and providers near you.' },
+            { q: 'Can Serva accommodate individuals with physical disabilities or special needs?', a: 'Absolutely. Serva is committed to accessibility and inclusion. When booking, you can include specific notes about any special requirements or accessibility needs, and our team will work to match you with a provider who is equipped to serve you appropriately.' }
+        ]
+    }
+];

@@ -428,41 +428,99 @@ function animateCounters() {
         if (s === 17 && t === 86 && sa === 94) clearInterval(interval);
     }, 40);
 }
+// FAQ Functionality
+function renderFAQ() {
+    const categoriesContainer = document.getElementById('faqCategories');
+    const itemsContainer = document.getElementById('faqItems');
+    if (!categoriesContainer || !itemsContainer) return;
+
+    // Render Categories
+    const categories = ['All', ...faqData.map(group => group.category)];
+    categoriesContainer.innerHTML = categories.map((cat, index) => `
+        <button onclick="filterFAQ('${cat}', this)" 
+            class="px-6 py-2 rounded-full font-medium transition-all ${index === 0 ? 'bg-emerald-600 text-white shadow-lg' : 'bg-white text-slate-600 border border-slate-100 hover:bg-slate-50'}">
+            ${cat}
+        </button>
+    `).join('');
+
+    // Initial render of all questions
+    filterFAQ('All', categoriesContainer.querySelector('button'));
+}
+
+function filterFAQ(category, button) {
+    const itemsContainer = document.getElementById('faqItems');
+    const buttons = document.querySelectorAll('#faqCategories button');
+    
+    // Update active button state
+    buttons.forEach(btn => {
+        btn.className = "px-6 py-2 rounded-full font-medium transition-all bg-white text-slate-600 border border-slate-100 hover:bg-slate-50";
+    });
+    button.className = "px-6 py-2 rounded-full font-medium transition-all bg-emerald-600 text-white shadow-lg";
+
+    // Filter questions
+    let questions = [];
+    if (category === 'All') {
+        faqData.forEach(group => questions.push(...group.questions));
+    } else {
+        const group = faqData.find(g => g.category === category);
+        if (group) questions = group.questions;
+    }
+
+    // Render Items
+    itemsContainer.innerHTML = questions.map((item, index) => `
+        <div class="faq-item group bg-white rounded-2xl border border-slate-100 overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex items-center justify-between p-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                <span class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">${item.q}</span>
+                <span class="faq-icon w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
+                    <i class="fas fa-plus text-xs"></i>
+                </span>
+            </button>
+            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                    ${item.a}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleFAQ(button) {
+    const item = button.closest('.faq-item');
+    const isActive = item.classList.contains('active');
+
+    // Close all other items
+    document.querySelectorAll('.faq-item').forEach(otherItem => {
+        if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            const otherIcon = otherItem.querySelector('.faq-icon i');
+            if (otherIcon) otherIcon.className = 'fas fa-plus text-xs';
+            const otherContent = otherItem.querySelector('.faq-content');
+            if (otherContent) otherContent.style.maxHeight = null;
+        }
+    });
+
+    // Toggle current item
+    item.classList.toggle('active');
+    const content = item.querySelector('.faq-content');
+    const icon = item.querySelector('.faq-icon i');
+    
+    if (item.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        icon.className = 'fas fa-minus text-xs';
+    } else {
+        content.style.maxHeight = null;
+        icon.className = 'fas fa-plus text-xs';
+    }
+}
 
 // Init
 document.addEventListener('DOMContentLoaded', async () => {
     await loadAppData();
     renderFeatured();
+    renderFAQ();
     animateCounters();
     
     // Initialize Routing
     window.addEventListener('hashchange', handleRouting);
     handleRouting(); // First load
-});
-
-// FAQ Functionality
-document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('.faq-trigger');
-    if (trigger) {
-        const item = trigger.closest('.faq-item');
-        const isActive = item.classList.contains('active');
-
-        // Close all other items
-        document.querySelectorAll('.faq-item').forEach(otherItem => {
-            if (otherItem !== item) {
-                otherItem.classList.remove('active');
-                const otherIcon = otherItem.querySelector('.faq-icon i');
-                if (otherIcon) otherIcon.className = 'fas fa-plus text-xs';
-            }
-        });
-
-        // Toggle current item
-        item.classList.toggle('active');
-        
-        // Update icon
-        const icon = trigger.querySelector('.faq-icon i');
-        if (icon) {
-            icon.className = item.classList.contains('active') ? 'fas fa-minus text-xs' : 'fas fa-plus text-xs';
-        }
-    }
 });
