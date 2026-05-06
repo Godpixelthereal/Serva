@@ -1,16 +1,28 @@
 // Supabase Initialization
 const SUPABASE_URL = "https://zcxixbrtdmwtjxtbnezk.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MAqGo_FVYT3ZCGSJ1NvO3w_PyjZkOhV";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabaseClient = null;
+
+function getSupabase() {
+    if (supabaseClient) return supabaseClient;
+    if (typeof supabase !== 'undefined') {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        return supabaseClient;
+    }
+    return null;
+}
 
 async function loadAppData() {
     try {
+        const client = getSupabase();
+        if (!client) throw new Error("Supabase library not loaded");
+
         // Fetch Services
-        const { data: services, error: sError } = await supabaseClient.from('services').select('*');
+        const { data: services, error: sError } = await client.from('services').select('*');
         if (!sError) allServicesData = services;
 
         // Fetch Approved Providers
-        const { data: providers, error: pError } = await supabaseClient.from('providers').select('*').eq('status', 'approved');
+        const { data: providers, error: pError } = await client.from('providers').select('*').eq('status', 'approved');
         if (!pError) providersData = providers;
         
         console.log("Supabase data loaded successfully");
@@ -468,6 +480,12 @@ async function handleJoinForm(e) {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     
+    const client = getSupabase();
+    if (!client) {
+        showToast("Service currently unavailable. Please try again later.");
+        return;
+    }
+
     try {
         const portfolioUrls = [];
         
@@ -477,13 +495,13 @@ async function handleJoinForm(e) {
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = `applications/${fileName}`;
 
-            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+            const { data: uploadData, error: uploadError } = await client.storage
                 .from('provider-portfolios')
                 .upload(filePath, file);
 
             if (uploadError) throw uploadError;
 
-            const { data: { publicUrl } } = supabaseClient.storage
+            const { data: { publicUrl } } = client.storage
                 .from('provider-portfolios')
                 .getPublicUrl(filePath);
                 
@@ -491,7 +509,7 @@ async function handleJoinForm(e) {
         }
 
         // 2. Insert Provider Data
-        const { error } = await supabaseClient.from('providers').insert([{
+        const { error } = await client.from('providers').insert([{
             name: data.name,
             business_name: data.business_name,
             location: data.location,
