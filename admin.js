@@ -94,16 +94,18 @@ async function renderAdminProviders() {
 
     const list = document.getElementById('adminProviderList');
     list.innerHTML = displayProviders.map(p => {
+        const svcId = p.service_id ?? p.serviceId;
         const serviceName = (typeof allServicesData !== 'undefined') 
-            ? allServicesData.find(s => s.id == p.serviceId)?.name || 'Service'
+            ? allServicesData.find(s => s.id == svcId)?.name || 'Service'
             : 'Service';
+        const photoSrc = p.photo_url || p.photo || 'provider-sarah.png';
             
         return `
         <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
             <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-slate-100 flex-shrink-0 flex items-center justify-center text-slate-400 overflow-hidden">
-                        <img src="${p.photo}" alt="${p.name}" class="w-full h-full object-cover">
+                        <img src="${photoSrc}" alt="${p.name}" class="w-full h-full object-cover">
                     </div>
                     <span class="font-bold text-slate-900">${p.name}</span>
                 </div>
@@ -122,17 +124,22 @@ async function renderAdminProviders() {
     document.getElementById('statTotal').textContent = displayProviders.length;
     
     // Active Services (Unique Service IDs being provided)
-    const uniqueServices = new Set(displayProviders.map(p => p.serviceId));
+    const uniqueServices = new Set(displayProviders.map(p => p.service_id ?? p.serviceId));
     const activeServicesStat = document.getElementById('statActiveServices');
     if (activeServicesStat) activeServicesStat.textContent = uniqueServices.size;
 }
 
-function deleteProvider(id) {
+async function deleteProvider(id) {
     if (!confirm("Are you sure you want to remove this provider?")) return;
-    const stored = localStorage.getItem('serva_providers');
-    let currentProviders = stored ? JSON.parse(stored) : [...providersData];
-    currentProviders = currentProviders.filter(p => p.id != id);
-    localStorage.setItem('serva_providers', JSON.stringify(currentProviders));
+    const client = getSupabase();
+    if (!client) return;
+    const { error } = await client.from('providers').delete().eq('id', id);
+    if (error) {
+        console.error("Delete error:", error);
+        alert("Failed to delete provider.");
+        return;
+    }
+    alert("Provider removed successfully.");
     renderAdminProviders();
 }
 
@@ -146,68 +153,75 @@ function openAddModal() {
 
 function closeModal() { document.getElementById('addModal').classList.add('hidden'); }
 
-function editProvider(id) {
-    const stored = localStorage.getItem('serva_providers');
-    const currentProviders = stored ? JSON.parse(stored) : [...providersData];
-    const p = currentProviders.find(p => p.id == id);
-    if (!p) return;
+async function editProvider(id) {
+    const client = getSupabase();
+    if (!client) return;
+    const { data: p, error } = await client.from('providers').select('*').eq('id', id).single();
+    if (error || !p) { console.error("Fetch error:", error); return; }
 
     // Open Modal
     document.getElementById('addModal').classList.remove('hidden');
     document.getElementById('modalTitle').textContent = "Edit Provider Details";
     document.getElementById('submitBtn').textContent = "Save Changes";
 
-    // Fill Form
+    // Fill Form (map Supabase fields to form fields)
     const form = document.getElementById('addProviderForm');
     form.name.value = p.name;
-    form.serviceId.value = p.serviceId;
+    form.serviceId.value = p.service_id ?? p.serviceId;
     form.location.value = p.location;
     form.price.value = p.price;
     form.about.value = p.about;
-    form.photo.value = p.photo;
+    form.photo.value = p.photo_url || p.photo || '';
     document.getElementById('editId').value = p.id;
 }
 
-function saveProvider(e) {
+async function saveProvider(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const providerDataInput = Object.fromEntries(formData.entries());
     const editId = document.getElementById('editId').value;
-    
-    const stored = localStorage.getItem('serva_providers');
-    let currentProviders = stored ? JSON.parse(stored) : [...providersData];
 
-    if (editId) {
-        // Update mode
-        const index = currentProviders.findIndex(p => p.id == editId);
-        if (index !== -1) {
-            currentProviders[index] = {
-                ...currentProviders[index],
-                ...providerDataInput,
-                price: parseInt(providerDataInput.price),
-                serviceId: parseInt(providerDataInput.serviceId)
-            };
-        }
-    } else {
-        // Create mode
-        const newProvider = {
-            ...providerDataInput,
-            id: Date.now(),
-            rating: 5.0,
-            jobs: 0,
-            price: parseInt(providerDataInput.price),
-            serviceId: parseInt(providerDataInput.serviceId)
-        };
-        currentProviders.push(newProvider);
+    const client = getSupabase();
+    if (!client) {
+        alert("Service unavailable. Please try again.");
+        return;
     }
 
-    // Persist to LocalStorage
-    localStorage.setItem('serva_providers', JSON.stringify(currentProviders));
+    const payload = {
+        name: providerDataInput.name,
+        location: providerDataInput.location,
+        price: parseInt(providerDataInput.price),
+        service_id: parseInt(providerDataInput.serviceId),
+        about: providerDataInput.about,
+        photo_url: providerDataInput.photo || 'provider-sarah.png'
+    };
 
-    alert(editId ? "Provider updated successfully!" : "Provider Approved! They are now live on your website.");
+    if (editId) {
+        // Update existing provider
+        const { error } = await client.from('providers').update(payload).eq('id', parseInt(editId));
+        if (error) {
+            console.error("Update error:", error);
+            alert("Failed to update provider.");
+            return;
+        }
+        alert("Provider updated successfully!");
+    } else {
+        // Create new approved provider
+        payload.status = 'approved';
+        payload.rating = 5.0;
+        payload.jobs = 0;
+        const { error } = await client.from('providers').insert([payload]);
+        if (error) {
+            console.error("Insert error:", error);
+            alert("Failed to add provider.");
+            return;
+        }
+        alert("Provider added and published!");
+    }
+
     closeModal();
     e.target.reset();
-    renderAdminProviders(); // Refresh list
+    renderAdminProviders();
 }
 
 async function renderAdminApplications() {
@@ -223,8 +237,9 @@ async function renderAdminApplications() {
     }
 
     list.innerHTML = applications.map(app => {
+        const svcId = app.service_id ?? app.serviceId;
         const serviceName = (typeof allServicesData !== 'undefined') 
-            ? allServicesData.find(s => s.id == app.serviceId)?.name || 'Service'
+            ? allServicesData.find(s => s.id == svcId)?.name || 'Service'
             : 'Service';
 
         return `
@@ -270,10 +285,16 @@ async function approveApplication(id) {
     renderAdminApplications();
 }
 
-function rejectApplication(id) {
+async function rejectApplication(id) {
     if (!confirm("Are you sure you want to reject this application?")) return;
-    const pending = JSON.parse(localStorage.getItem('serva_pending_applications') || '[]');
-    const updatedPending = pending.filter(a => a.id !== id);
-    localStorage.setItem('serva_pending_applications', JSON.stringify(updatedPending));
+    const client = getSupabase();
+    if (!client) return;
+    const { error } = await client.from('providers').delete().eq('id', id);
+    if (error) {
+        console.error("Reject error:", error);
+        alert("Failed to reject application.");
+        return;
+    }
+    alert("Application rejected.");
     renderAdminApplications();
 }

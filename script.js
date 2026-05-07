@@ -17,20 +17,44 @@ async function loadAppData() {
         const client = getSupabase();
         if (!client) throw new Error("Supabase library not loaded");
 
-        // Fetch Services
+        // Fetch Services (map snake_case → camelCase)
         const { data: services, error: sError } = await client.from('services').select('*');
-        if (!sError) allServicesData = services;
+        if (!sError && services && services.length > 0) {
+            allServicesData = services.map(s => ({
+                id: s.id,
+                catId: s.cat_id || s.catId,
+                name: s.name,
+                description: s.description,
+                icon: s.icon,
+                price: s.price,
+                location: s.location
+            }));
+        }
 
-        // Fetch Approved Providers
+        // Fetch Approved Providers (map snake_case → camelCase)
         const { data: providers, error: pError } = await client.from('providers').select('*').eq('status', 'approved');
-        if (!pError) providersData = providers;
-        
+        if (!pError && providers && providers.length > 0) {
+            providersData = providers.map(p => ({
+                id: p.id,
+                serviceId: p.service_id ?? p.serviceId,
+                name: p.name,
+                location: p.location,
+                price: p.price,
+                rating: p.rating,
+                photo: p.photo_url || p.photo || 'provider-sarah.png',
+                about: p.about,
+                portfolio: p.portfolio_urls || p.portfolio || [],
+                jobs: p.jobs || 0,
+                business_name: p.business_name,
+                call_line: p.call_line,
+                whatsapp_line: p.whatsapp_line
+            }));
+        }
+
         console.log("Supabase data loaded successfully");
     } catch (e) {
         console.error("Supabase load error:", e);
-        // Fallback to local storage or data.js if Supabase fails
-        const stored = localStorage.getItem('serva_providers');
-        if (stored) providersData = JSON.parse(stored);
+        // Fallback to data.js defaults (already loaded)
     }
 }
 
@@ -426,7 +450,11 @@ function showToast(msg) {
     const t = document.getElementById('toast');
     document.getElementById('toastMessage').textContent = msg;
     t.classList.remove('hidden');
-    setTimeout(() => t.classList.add('hidden'), 5000);
+    t.classList.add('animate-slide-up');
+    setTimeout(() => {
+        t.classList.add('hidden');
+        t.classList.remove('animate-slide-up');
+    }, 3000);
 }
 
 // Become a Provider Logic
@@ -540,14 +568,7 @@ async function handleJoinForm(e) {
         btn.innerHTML = originalText;
     }
 }
-    // Add entering animation classes
-    t.classList.add('animate-slide-up');
 
-    setTimeout(() => {
-        t.classList.add('hidden');
-        t.classList.remove('animate-slide-up');
-    }, 3000);
-}
 
 // Counters
 function animateCounters() {
