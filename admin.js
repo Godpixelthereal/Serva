@@ -243,32 +243,97 @@ async function renderAdminApplications() {
             : 'Service';
 
         return `
-        <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+        <tr class="border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer" onclick="viewApplication(${app.id})">
             <td class="px-6 py-4">
-                <div class="flex flex-col">
-                    <span class="font-bold text-slate-900">${app.name}</span>
-                    <span class="text-xs text-slate-400">${app.business_name}</span>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                        <img src="${app.photo_url || 'provider-sarah.png'}" alt="${app.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-slate-900">${app.name}</span>
+                        <span class="text-xs text-slate-400">${app.business_name || ''}</span>
+                    </div>
                 </div>
             </td>
             <td class="px-6 py-4 text-sm text-slate-500">${serviceName}</td>
             <td class="px-6 py-4">
                 <div class="flex flex-col gap-1">
                     <div class="flex items-center gap-2 text-xs font-medium text-slate-600">
-                        <i class="fas fa-phone text-emerald-500"></i> ${app.call_line}
+                        <i class="fas fa-phone text-emerald-500"></i> ${app.call_line || '—'}
                     </div>
                     <div class="flex items-center gap-2 text-xs font-medium text-slate-600">
-                        <i class="fab fa-whatsapp text-emerald-500"></i> ${app.whatsapp_line}
+                        <i class="fab fa-whatsapp text-emerald-500"></i> ${app.whatsapp_line || '—'}
                     </div>
                 </div>
             </td>
             <td class="px-6 py-4 text-right">
-                <div class="flex justify-end gap-2">
-                    <button class="bg-emerald-500 text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-emerald-600 transition" onclick="approveApplication(${app.id})">Approve</button>
-                    <button class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg text-xs font-bold hover:bg-red-50 hover:text-red-600 transition" onclick="rejectApplication(${app.id})">Reject</button>
-                </div>
+                <button class="text-emerald-500 hover:text-emerald-700 font-bold text-xs flex items-center gap-1 ml-auto" onclick="event.stopPropagation(); viewApplication(${app.id})">
+                    <i class="fas fa-eye"></i> View Details
+                </button>
             </td>
         </tr>
     `}).join('');
+}
+
+// ---- Application Detail Modal ----
+
+let currentAppId = null;
+
+async function viewApplication(id) {
+    const client = getSupabase();
+    if (!client) return;
+    const { data: app, error } = await client.from('providers').select('*').eq('id', id).single();
+    if (error || !app) { console.error("Fetch error:", error); return; }
+
+    currentAppId = app.id;
+
+    // Populate modal
+    const svcId = app.service_id ?? app.serviceId;
+    const serviceName = (typeof allServicesData !== 'undefined') 
+        ? allServicesData.find(s => s.id == svcId)?.name || 'Service'
+        : 'Service';
+
+    document.getElementById('appDetailName').textContent = app.name;
+    document.getElementById('appDetailBusiness').textContent = app.business_name || 'Independent Provider';
+    document.getElementById('appDetailService').textContent = serviceName;
+    document.getElementById('appDetailLocation').textContent = app.location;
+    document.getElementById('appDetailPrice').textContent = `₦${parseInt(app.price).toLocaleString()}`;
+    document.getElementById('appDetailAbout').textContent = app.about || 'No description provided.';
+    document.getElementById('appDetailPhone').textContent = app.call_line || 'Not provided';
+    document.getElementById('appDetailWhatsApp').textContent = app.whatsapp_line || 'Not provided';
+
+    // Portfolio images
+    const portfolioGrid = document.getElementById('appDetailPortfolio');
+    const urls = app.portfolio_urls || [];
+    if (urls.length > 0) {
+        portfolioGrid.innerHTML = urls.map(url => `
+            <div class="aspect-square rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+                <img src="${url}" alt="Portfolio" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer" onclick="window.open('${url}', '_blank')">
+            </div>
+        `).join('');
+    } else {
+        portfolioGrid.innerHTML = '<p class="text-sm text-slate-400 col-span-4">No portfolio images uploaded.</p>';
+    }
+
+    // Show modal
+    document.getElementById('appDetailModal').classList.remove('hidden');
+}
+
+function closeAppDetail() {
+    document.getElementById('appDetailModal').classList.add('hidden');
+    currentAppId = null;
+}
+
+async function approveFromDetail() {
+    if (!currentAppId) return;
+    await approveApplication(currentAppId);
+    closeAppDetail();
+}
+
+async function rejectFromDetail() {
+    if (!currentAppId) return;
+    await rejectApplication(currentAppId);
+    closeAppDetail();
 }
 
 async function approveApplication(id) {
